@@ -133,7 +133,7 @@ Source222:      https://github.com/nbs-system/naxsi/archive/%{ngx_naxsi_version}
 Source223:      https://github.com/apache/incubator-pagespeed-ngx/archive/%{ngx_pagespeed_version}.tar.gz#/%{ngx_pagespeed_version}.tar.gz
 
 
-#Requires:       jemalloc
+# Requires:       jemalloc
 Requires:       brotli
 Requires:       libzstd
 Requires:       libslz
