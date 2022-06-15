@@ -23,11 +23,38 @@
 %global         nginx_uwsgi_cachedir   %{nginx_tempdir}/uwsgi_cache
 %global         nginx_scgi_cachedir    %{nginx_tempdir}/scgi_cache
 
-%global         nginx_quic_commit   cd8018bc81a5
-%global         njs_version         0.7.0
+%global         nginx_quic_commit   861f076eab72
+%global         njs_version         0.7.4
 %global         cf_zlib_version     1.2.8
-%global         zlib_ng_version     2.0.3
-%global         quictls_version     3.0.2
+%global         zlib_ng_version     2.0.6
+%global         quictls_version     3.0.3
+
+%global         modsecurity_version 1.0.3
+%global         ngx_vts_version  v0.1.18
+%global         ngx_echo_version v0.62
+%global         ngx_more_headers_version v0.33
+%global         ngx_zstd_version    1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc
+
+%global         ngx_memc_version      0.19
+%global         ngx_cookie_flag_version     1cfba16c22d39743240d734fc0c04f7ed1c5929b
+%global         ngx_security_headers_version 0.0.11
+%global         ngx_dynamic_etag_version    0.2.1
+%global         ngx_sysguard_version        aa65c0b71b23229bd9408cc69096bfe2838c34ce
+%global         ngx_sticky_version          e26ad8c81dd729343234531a6d47c029bad59153
+%global         ngx_immutable_version       0.0.1
+%global         ngx_secure_token_version    d3d8cead244a0b3083c895043fa86de2f399d488
+%global         ngx_cache_purge_version     2.5.2
+%global         ngx_geoip2_version          3.3
+%global         ngx_push_stream_version     20819c8eac960b480b82192e65a64c49c59f73e3
+%global         ngx_pta_version             1.0.0
+%global         ngx_set_misc_version        0.33
+%global         ngx_pgx_version             1.0.0
+%global         ngx_zstd_version            1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc
+%global         ngx_fancyindex_version      0.5.2
+%global         ngx_srcache_version         0.32
+
+# %global         ngx_naxsi_version           1.3 
+# %global         ngx_pagespeed_version   1.14.33.1-RC1
 
 %global         pkg_name            nginx-quic
 %global         main_version        1.21.6
@@ -63,13 +90,13 @@ Source100:      https://github.com/quictls/openssl/archive/openssl-%{quictls_ver
 Source101:      https://github.com/cloudflare/zlib/archive/v%{cf_zlib_version}.tar.gz#/zlib-%{cf_zlib_version}.tar.gz
 Source102:      https://github.com/zlib-ng/zlib-ng/archive/%{zlib_ng_version}.tar.gz#/zlib-ng-%{zlib_ng_version}.tar.gz
 
-Source200:      https://github.com/google/ngx_brotli/archive/v1.0.0rc.tar.gz#/ngx_brotli-v1.0.0rc.tar.gz
-Source201:      https://github.com/leev/ngx_http_geoip2_module/archive/3.3.tar.gz#/ngx_http_geoip2_module-3.3.tar.gz
-Source202:      https://github.com/SpiderLabs/ModSecurity-nginx/archive/v1.0.2.tar.gz#/ModSecurity-nginx-v1.0.2.tar.gz
-Source203:      https://github.com/vozlt/nginx-module-vts/archive/v0.1.18.tar.gz#/nginx-module-vts-v0.1.18.tar.gz
-Source204:      https://github.com/openresty/echo-nginx-module/archive/v0.62.tar.gz#/echo-nginx-module-v0.62.tar.gz
-Source205:      https://github.com/openresty/headers-more-nginx-module/archive/v0.33.tar.gz#/headers-more-nginx-module-v0.33.tar.gz
-Source206:      https://github.com/tokers/zstd-nginx-module/archive/1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc.tar.gz#/zstd-nginx-module-1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc.tar.gz
+Source200:      https://github.com/google/ngx_brotli/archive/%{ngx_brotli_version}.tar.gz#/ngx_brotli-%{ngx_geoip2_version}.tar.gz
+Source201:      https://github.com/leev/ngx_http_geoip2_module/archive/%{ngx_geoip2_version}.tar.gz#/ngx_http_geoip2_module-%{ngx_geoip2_version}.tar.gz
+Source202:      https://github.com/SpiderLabs/ModSecurity-nginx/archive/%{modsecurity_version}.tar.gz#/ModSecurity-nginx-%{modsecurity_version}.tar.gz
+Source203:      https://github.com/vozlt/nginx-module-vts/archive/%{ngx_vts_version}.tar.gz#/nginx-module-vts-%{ngx_vts_version}.tar.gz
+Source204:      https://github.com/openresty/echo-nginx-module/archive/%{ngx_echo_version}.tar.gz#/echo-nginx-module-%{ngx_echo_version}.tar.gz
+Source205:      https://github.com/openresty/headers-more-nginx-module/archive/%{ngx_more_headers_version}.tar.gz#/headers-more-nginx-module-%{ngx_more_headers_version}.tar.gz
+Source206:      https://github.com/tokers/zstd-nginx-module/archive/%{ngx_zstd_version}.tar.gz#/zstd-nginx-module-%{ngx_zstd_version}.tar.gz
 
 Requires:       jemalloc
 Requires:       brotli
