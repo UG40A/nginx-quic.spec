@@ -498,9 +498,6 @@ esac
 
 # njs
 %dir %{nginx_moddir}
-%if 0%{?rhel} == 7
-%{_bindir}/njs
-%endif
 %{nginx_moddir}/ngx_http_js_module.so
 %{nginx_moddir}/ngx_stream_js_module.so
 
