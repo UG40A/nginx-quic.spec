@@ -29,7 +29,7 @@
 %global         zlib_ng_version     2.0.6
 %global         quictls_version     3.0.3
 
-%global         modsecurity_version 1.0.3 # ryoh's spec.
+%global         modsecurity-nginx_version 1.0.3 # ryoh's spec.
 %global         ngx_zstd_version    1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc # ryoh's spec.
 
 # openresty:
@@ -81,7 +81,7 @@ Source0:        https://hg.nginx.org/nginx-quic/archive/%{nginx_quic_commit}.tar
 Source1:        https://hg.nginx.org/njs/archive/%{njs_version}.tar.gz#/njs-%{njs_version}.tar.gz
 Patch0:         https://raw.githubusercontent.com/nginx-modules/ngx_http_tls_dyn_size/master/nginx__dynamic_tls_records_1.17.7%2B.patch
 Patch0:         https://raw.githubusercontent.com/hakasenyang/openssl-patch/master/nginx_hpack_push_1.15.3.patch
-#Patch0:         https://raw.githubusercontent.com/hakasenyang/openssl-patch/master/remove_nginx_server_header.patch
+# Patch0:         https://raw.githubusercontent.com/hakasenyang/openssl-patch/master/remove_nginx_server_header.patch
 
 Source10:       nginx.service
 Source11:       nginx.sysconf
@@ -104,7 +104,7 @@ Source102:      https://github.com/zlib-ng/zlib-ng/archive/%{zlib_ng_version}.ta
 
 Source200:      https://github.com/google/ngx_brotli/archive/%{ngx_brotli_version}.tar.gz#/ngx_brotli-%{ngx_brotli_version}.tar.gz
 Source201:      https://github.com/leev/ngx_http_geoip2_module/archive/%{ngx_geoip2_version}.tar.gz#/ngx_http_geoip2_module-%{ngx_geoip2_version}.tar.gz
-Source202:      https://github.com/SpiderLabs/ModSecurity-nginx/archive/%{modsecurity_version}.tar.gz#/ModSecurity-nginx-%{modsecurity_version}.tar.gz
+Source202:      https://github.com/SpiderLabs/ModSecurity-nginx/archive/%{modsecurity-nginx_version}.tar.gz#/ModSecurity-nginx-%{modsecurity-nginx_version}.tar.gz
 Source203:      https://github.com/vozlt/nginx-module-vts/archive/%{ngx_vts_version}.tar.gz#/nginx-module-vts-%{ngx_vts_version}.tar.gz
 Source204:      https://github.com/openresty/echo-nginx-module/archive/%{ngx_echo_version}.tar.gz#/echo-nginx-module-%{ngx_echo_version}.tar.gz
 Source205:      https://github.com/openresty/headers-more-nginx-module/archive/%{ngx_more_headers_version}.tar.gz#/headers-more-nginx-module-%{ngx_more_headers_version}.tar.gz
