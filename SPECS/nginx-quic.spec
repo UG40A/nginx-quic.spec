@@ -79,6 +79,9 @@ URL:            https://nginx.org/
 
 Source0:        https://hg.nginx.org/nginx-quic/archive/%{nginx_quic_commit}.tar.gz#/nginx-quic-%{nginx_quic_commit}.tar.gz
 Source1:        https://hg.nginx.org/njs/archive/%{njs_version}.tar.gz#/njs-%{njs_version}.tar.gz
+Patch0:         https://raw.githubusercontent.com/nginx-modules/ngx_http_tls_dyn_size/master/nginx__dynamic_tls_records_1.17.7%2B.patch
+Patch0:         https://raw.githubusercontent.com/hakasenyang/openssl-patch/master/nginx_hpack_push_1.15.3.patch
+#Patch0:         https://raw.githubusercontent.com/hakasenyang/openssl-patch/master/remove_nginx_server_header.patch
 
 Source10:       nginx.service
 Source11:       nginx.sysconf
