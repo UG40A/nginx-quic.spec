@@ -29,32 +29,41 @@
 %global         zlib_ng_version     2.0.6
 %global         quictls_version     3.0.3
 
-%global         modsecurity_version 1.0.3
-%global         ngx_vts_version  v0.1.18
-%global         ngx_echo_version v0.62
-%global         ngx_more_headers_version v0.33
-%global         ngx_zstd_version    1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc
+%global         modsecurity_version 1.0.3 # ryoh's spec.
+%global         ngx_zstd_version    1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc # ryoh's spec.
 
-%global         ngx_memc_version      0.19
-%global         ngx_cookie_flag_version     1cfba16c22d39743240d734fc0c04f7ed1c5929b
-%global         ngx_security_headers_version 0.0.11
-%global         ngx_dynamic_etag_version    0.2.1
-%global         ngx_sysguard_version        aa65c0b71b23229bd9408cc69096bfe2838c34ce
-%global         ngx_sticky_version          e26ad8c81dd729343234531a6d47c029bad59153
-%global         ngx_immutable_version       0.0.1
-%global         ngx_secure_token_version    d3d8cead244a0b3083c895043fa86de2f399d488
-%global         ngx_cache_purge_version     2.5.2
-%global         ngx_geoip2_version          3.3
-%global         ngx_push_stream_version     20819c8eac960b480b82192e65a64c49c59f73e3
-%global         ngx_pta_version             1.0.0
+# openresty:
+%global         ngx_more_headers_version    v0.33 # ryoh's spec.
+%global         ngx_echo_version            v0.62 # ryoh's spec.
+%global         ngx_memc_version            0.19
 %global         ngx_set_misc_version        0.33
-%global         ngx_pgx_version             1.0.0
-%global         ngx_zstd_version            1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc
-%global         ngx_fancyindex_version      0.5.2
+%global         ngx_pgs_version             1.0.0
 %global         ngx_srcache_version         0.32
 
+# others:
+%global         ngx_geoip2_version          3.3 # ryoh's spec.
+%global         ngx_vts_version             v0.1.18  # ryoh's spec.   
+%global         ngx_pta_version             1.0.0
+%global         ngx_fancyindex_version      0.5.2
+%global         ngx_secure_token_version    d3d8cead244a0b3083c895043fa86de2f399d488
+
+# forks:
+%global         ngx_push_stream_version     20819c8eac960b480b82192e65a64c49c59f73e3
+%global         ngx_sticky_version          e26ad8c81dd729343234531a6d47c029bad59153
+%global         ngx_cookie_flag_version     1cfba16c22d39743240d734fc0c04f7ed1c5929b
+%global         ngx_sysguard_version        aa65c0b71b23229bd9408cc69096bfe2838c34ce
+%global         ngx_cache_purge_version     2.5.2
+
+# GetPageSpeed repo:
+%global         ngx_security_headers_version 0.0.11
+%global         ngx_dynamic_etag_version    0.2.1
+%global         ngx_immutable_version       0.0.1
+
+## build failed:
 # %global         ngx_naxsi_version           1.3 
 # %global         ngx_pagespeed_version   1.14.33.1-RC1
+
+###
 
 %global         pkg_name            nginx-quic
 %global         main_version        1.21.6
@@ -90,13 +99,36 @@ Source100:      https://github.com/quictls/openssl/archive/openssl-%{quictls_ver
 Source101:      https://github.com/cloudflare/zlib/archive/v%{cf_zlib_version}.tar.gz#/zlib-%{cf_zlib_version}.tar.gz
 Source102:      https://github.com/zlib-ng/zlib-ng/archive/%{zlib_ng_version}.tar.gz#/zlib-ng-%{zlib_ng_version}.tar.gz
 
-Source200:      https://github.com/google/ngx_brotli/archive/%{ngx_brotli_version}.tar.gz#/ngx_brotli-%{ngx_geoip2_version}.tar.gz
+Source200:      https://github.com/google/ngx_brotli/archive/%{ngx_brotli_version}.tar.gz#/ngx_brotli-%{ngx_brotli_version}.tar.gz
 Source201:      https://github.com/leev/ngx_http_geoip2_module/archive/%{ngx_geoip2_version}.tar.gz#/ngx_http_geoip2_module-%{ngx_geoip2_version}.tar.gz
 Source202:      https://github.com/SpiderLabs/ModSecurity-nginx/archive/%{modsecurity_version}.tar.gz#/ModSecurity-nginx-%{modsecurity_version}.tar.gz
 Source203:      https://github.com/vozlt/nginx-module-vts/archive/%{ngx_vts_version}.tar.gz#/nginx-module-vts-%{ngx_vts_version}.tar.gz
 Source204:      https://github.com/openresty/echo-nginx-module/archive/%{ngx_echo_version}.tar.gz#/echo-nginx-module-%{ngx_echo_version}.tar.gz
 Source205:      https://github.com/openresty/headers-more-nginx-module/archive/%{ngx_more_headers_version}.tar.gz#/headers-more-nginx-module-%{ngx_more_headers_version}.tar.gz
 Source206:      https://github.com/tokers/zstd-nginx-module/archive/%{ngx_zstd_version}.tar.gz#/zstd-nginx-module-%{ngx_zstd_version}.tar.gz
+
+Source207:      https://github.com/openresty/memc-nginx-module/archive/%{ngx_memc_version}.tar.gz#/memc-nginx-module-%{ngx_memc_version}.tar.gz
+Source208:      https://github.com/openresty/scache-nginx-module/archive/%{ngx_scache_version}.tar.gz#/scache-nginx-module-%{ngx_scache_version}.tar.gz
+Source209:      https://github.com/openresty/ngx_postgres/archive/%{ngx_pgs_version}.tar.gz#/ngx_postgres-%{ngx_pgs_version}.tar.gz
+Source210:      https://github.com/openresty/set-misc-nginx-module/archive/%{ngx_set_misc_version}.tar.gz#/set-misc-nginx-module-%{ngx_set_misc_version}.tar.gz
+
+Source211:      https://github.com/dvershinin/ngx_dynamic_etag/archive/%{ngx_dynamic_etag_version}.tar.gz#/{ngx_dynamic_etag_version}.tar.gz
+Source212:      https://github.com/GetPageSpeed/ngx_security_headers/archive/%{ngx_security_headers_version}.tar.gz#/{ngx_security_headers_version}.tar.gz
+Source213:      https://github.com/GetPageSpeed/ngx_immutable/archive/%{ngx_immutable_version}.tar.gz#/{ngx_immutable_version}.tar.gz
+
+Source214:      https://github.com/kaltura/nginx-secure-token-module/archive/%{ngx_secure_token_version}.tar.gz#/%{ngx_secure_token_version}.tar.gz
+Source215:      https://github.com/iij/pta/archive/%{ngx_pta_version}.tar.gz#/%{ngx_pta_version}.tar.gz
+Source216:      https://github.com/aperezdc/ngx-fancyindex/archive/%{ngx_fancyindex_version}.tar.gz#/%{ngx_fancyindex_version}.tar.gz
+
+Source217:      https://github.com/RekGRpth/nginx-push-stream-module/archive/%{ngx_push_stream_version}.tar.gz#/%{ngx_push_stream_version}.tar.gz
+Source218:      https://github.com/levonet/nginx-sticky-module-ng/archive/%{ngx_sticky_version}.tar.gz#/%{ngx_sticky_version}.tar.gz
+Source219:      https://github.com/acastlesibm/nginx_cookie_flag_module/archive/%{ngx_cookie_flag_version}.tar.gz#/%{ngx_cookie_flag_version}.tar.gz
+Source220:      https://github.com/devnexen/nginx-module-sysguard/archive/%{ngx_sysguard_version}.tar.gz#/%{ngx_sysguard_version}.tar.gz
+Source221:      https://github.com/nginx-modules/ngx_cache_purge/archive/%{ngx_cache_purge_version}.tar.gz#/%{ngx_cache_purge_version}.tar.gz
+
+Source222:      https://github.com/nbs-system/naxsi/archive/%{ngx_naxsi_version}.tar.gz#/%{ngx_naxsi_version}.tar.gz
+Source223:      https://github.com/apache/incubator-pagespeed-ngx/archive/%{ngx_pagespeed_version}.tar.gz#/%{ngx_pagespeed_version}.tar.gz
+
 
 Requires:       jemalloc
 Requires:       brotli
