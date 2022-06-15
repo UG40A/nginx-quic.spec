@@ -246,7 +246,7 @@ cd ${MODULE}
 popd
 
 %build
-source scl_source enable gcc-toolset-11 ||:
+source scl_source enable gcc-toolset-11
 
 EXCC_OPTS="-mtune=ampere1 -O3 -ftree-vectorize -fopenmp -ffast-math -flto"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
