@@ -515,9 +515,7 @@ esac
 %{nginx_moddir}/ngx_stream_geoip2_module.so
 
 # ModSecurity
-%if 0%{?rhel} == 7
 %{nginx_moddir}/ngx_http_modsecurity_module.so
-%endif
 
 # VTS
 %{nginx_moddir}/ngx_http_vhost_traffic_status_module.so
