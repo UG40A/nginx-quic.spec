@@ -133,7 +133,7 @@ Source222:      https://github.com/nbs-system/naxsi/archive/%{ngx_naxsi_version}
 Source223:      https://github.com/apache/incubator-pagespeed-ngx/archive/%{ngx_pagespeed_version}.tar.gz#/%{ngx_pagespeed_version}.tar.gz
 
 
-Requires:       jemalloc
+#Requires:       jemalloc
 Requires:       brotli
 Requires:       libzstd
 Requires:       libslz
@@ -145,7 +145,7 @@ BuildRequires:    systemd
 
 BuildRequires:  make gcc automake autoconf libtool
 BuildRequires:  zlib-devel pcre-devel
-BuildRequires:  jemalloc-devel
+# BuildRequires:  jemalloc-devel
 BuildRequires:  libunwind-devel
 BuildRequires:  libatomic_ops-devel
 BuildRequires:  brotli-devel
@@ -156,15 +156,7 @@ BuildRequires:  readline-devel
 BuildRequires:  perl-IPC-Cmd
 BuildRequires:  libzstd-devel
 BuildRequires:  libslz-devel
-%if 0%{?rhel} == 7
-BuildRequires:  libmodsecurity-devel
-BuildRequires:  expect-devel
-BuildRequires:  devtoolset-11
-BuildRequires:  rh-git218
-%endif
-%if 0%{?rhel} == 8
 BuildRequires:  gcc-toolset-11
-%endif
 
 %description
 nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server,
@@ -254,19 +246,13 @@ cd ${MODULE}
 popd
 
 %build
-%if 0%{?rhel} == 7
-source scl_source enable devtoolset-11 ||:
-source scl_source enable rh-git218 ||:
-%endif
-%if 0%{?rhel} == 8
-source scl_source enable gcc-toolset-9 ||:
-%endif
+source scl_source enable gcc-toolset-11 ||:
 
-EXCC_OPTS="-march=native"
+EXCC_OPTS="-mtune=ampere1 -O3 -ftree-vectorize -fopenmp -ffast-math -flto"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
-LDFLAGS="%{?__global_ldflags} -ljemalloc $(pcre-config --libs) -lslz"
+LDFLAGS="%{?__global_ldflags} $(pcre-config --libs) -lslz" # -ljemalloc
 export LDFLAGS;
 
 ./auto/configure \
@@ -327,11 +313,7 @@ export LDFLAGS;
   --add-dynamic-module=../echo-nginx-module \
   --add-dynamic-module=../headers-more-nginx-module \
   --add-dynamic-module=../zstd-nginx-module \
-%if 0%{?rhel} == 7
   --add-dynamic-module=../ModSecurity-nginx \
-%endif
-
-
 %make_build
 
 %install
