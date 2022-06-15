@@ -313,7 +313,8 @@ export LDFLAGS;
   --add-dynamic-module=../echo-nginx-module \
   --add-dynamic-module=../headers-more-nginx-module \
   --add-dynamic-module=../zstd-nginx-module \
-  --add-dynamic-module=../ModSecurity-nginx \
+  --add-dynamic-module=../ModSecurity-nginx 
+  
 %make_build
 
 %install
