@@ -484,9 +484,9 @@ export LDFLAGS;
   --add-dynamic-module=../ngx_naxsi
   
   Failed to build:
-  Due to AARCH64:
+  # Due to AARCH64:
   #  --add-dynamic-module=../ngx_pagespeed \
-  Due to https://github.com/nginx/nginx/commit/3aef1d693f3cc431563a7e6a6aba6a34e5290f03:
+  # Due to https://github.com/nginx/nginx/commit/3aef1d693f3cc431563a7e6a6aba6a34e5290f03:
   #  --add-dynamic-module=../ngx_immutable \
   #  --add-dynamic-module=../ngx_secure_token \
   #  --add-dynamic-module=../ngx_pta \
