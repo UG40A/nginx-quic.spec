@@ -1,5 +1,5 @@
 %global         _performance_build  1
-%global         _hardened_build     1
+%%global         _hardened_build     1
 
 %global         nginx_user          nginx
 %global         nginx_group         nginx
