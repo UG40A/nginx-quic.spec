@@ -24,7 +24,7 @@
 %global         nginx_scgi_cachedir    %{nginx_tempdir}/scgi_cache
 
 %global         nginx_quic_commit   861f076eab72
-%global         njs_version         0.7.4
+%global         njs_version         0.7.3
 %global         cf_zlib_version     1.2.8
 %global         zlib_ng_version     2.0.6
 %global         quictls_version     3.0.3
