@@ -38,7 +38,7 @@
 %global         ngx_echo_version            v0.62
 %global         ngx_memc_version            v0.19
 %global         ngx_set_misc_version        v0.33
-%global         ngx_pgs_version             v1.0.0
+%global         ngx_pgs_version             1.0
 %global         ngx_srcache_version         v0.32
 
 # others:
