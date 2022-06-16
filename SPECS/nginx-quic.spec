@@ -30,7 +30,7 @@
 %global         quictls_version     3.0.3
 %global         ngx_brotli_version  v1.0.0rc
 
-%global         modsecurity-nginx_version 1.0.3
+%global					modsecurity-nginx_version 		1.0.3
 %global         ngx_zstd_version    1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc
 
 # openresty:
@@ -106,7 +106,7 @@ Source102:      https://github.com/zlib-ng/zlib-ng/archive/%{zlib_ng_version}.ta
 
 Source200:      https://github.com/google/ngx_brotli/archive/%{ngx_brotli_version}.tar.gz#/ngx_brotli-%{ngx_brotli_version}.tar.gz
 Source201:      https://github.com/leev/ngx_http_geoip2_module/archive/%{ngx_geoip2_version}.tar.gz#/ngx_http_geoip2_module-%{ngx_geoip2_version}.tar.gz
-Source202:      https://github.com/SpiderLabs/ModSecurity-nginx/archive/%{modsecurity-nginx_version}.tar.gz#/ModSecurity-nginx-%{modsecurity-nginx_version}.tar.gz
+Source202:      https://github.com/SpiderLabs/ModSecurity-nginx/archive/%{modsecurity-nginx_version}.tar.gz#/modsecurity-nginx-%{modsecurity-nginx_version}.tar.gz
 Source203:      https://github.com/vozlt/nginx-module-vts/archive/%{ngx_vts_version}.tar.gz#/nginx-module-vts-%{ngx_vts_version}.tar.gz
 Source204:      https://github.com/openresty/echo-nginx-module/archive/%{ngx_echo_version}.tar.gz#/echo-nginx-module-%{ngx_echo_version}.tar.gz
 Source205:      https://github.com/openresty/headers-more-nginx-module/archive/%{ngx_more_headers_version}.tar.gz#/headers-more-nginx-module-%{ngx_more_headers_version}.tar.gz
