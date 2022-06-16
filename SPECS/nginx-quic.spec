@@ -28,7 +28,10 @@
 # library path specification on resulting binary, allowing libmodsecurity.so
 # to be relocated across configured library pathes (adjust /etc/ld.so.conf
 # or set $LD_LIBRARY_PATH environment variable to manage them)
-%global         NGX_IGNORE_RPATH       YES
+%global         NGX_IGNORE_RPATH       NO
+# Explicit PATH env (only for $NGX_IGNORE_RPATH=NO):
+%global         $MODSECURITY_LIB       /usr/local/lib
+%global         $MODSECURITY_INC       /usr/local/include
 
 %global         nginx_quic_commit   861f076eab72
 %global         njs_version         0.7.4
