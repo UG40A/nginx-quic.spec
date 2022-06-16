@@ -24,7 +24,7 @@
 %global         nginx_scgi_cachedir    %{nginx_tempdir}/scgi_cache
 
 %global         nginx_quic_commit   861f076eab72
-%global         njs_version         0.7.3
+%global         njs_version         0.7.4
 %global         cf_zlib_version     1.2.8
 %global         zlib_ng_version     2.0.6
 %global         quictls_version     3.0.3
@@ -80,7 +80,7 @@ License:        BSD
 URL:            https://nginx.org/
 
 Source0:        https://hg.nginx.org/nginx-quic/archive/%{nginx_quic_commit}.tar.gz#/nginx-quic-%{nginx_quic_commit}.tar.gz
-Source1:        https://hg.nginx.org/njs/archive/%{njs_version}.tar.gz#/njs-%{njs_version}.tar.gz
+# Source1:        https://hg.nginx.org/njs/archive/%{njs_version}.tar.gz#/njs-%{njs_version}.tar.gz
 # Patch0:         https://raw.githubusercontent.com/nginx-modules/ngx_http_tls_dyn_size/master/nginx__dynamic_tls_records_1.17.7%2B.patch
 # Patch0:         https://raw.githubusercontent.com/hakasenyang/openssl-patch/master/nginx_hpack_push_1.15.3.patch
 # Patch0:         https://raw.githubusercontent.com/hakasenyang/openssl-patch/master/remove_nginx_server_header.patch
@@ -189,13 +189,13 @@ cd ${MODULE}
 %{__tar} -xf %{SOURCE101} --strip 1
 popd
 
-pushd ..
-MODULE="njs"
-%{__rm} -rf ${MODULE}
-%{__mkdir} ${MODULE}
-cd ${MODULE}
-%{__tar} -xf %{SOURCE1} --strip 1
-popd
+# pushd ..
+# MODULE="njs"
+# %%{__rm} -rf ${MODULE}
+# %%{__mkdir} ${MODULE}
+# cd ${MODULE}
+# %%{__tar} -xf %{SOURCE1} --strip 1
+# popd
 
 pushd ..
 MODULE="ngx_brotli"
@@ -461,7 +461,7 @@ export LDFLAGS;
   --with-http_v2_module \
   --with-mail \
   --with-mail_ssl_module \
-  --add-dynamic-module=../njs/nginx \
+  # --add-dynamic-module=../njs/nginx \
   --add-dynamic-module=../ngx_brotli \
   --add-dynamic-module=../ngx_http_geoip2_module \
   --add-dynamic-module=../nginx-module-vts \
@@ -496,7 +496,7 @@ export LDFLAGS;
 %make_install INSTALLDIRS=vendor
 
 # njs bin
-%{__install} -p -D -m 0755 %{_builddir}/njs/build/njs %{buildroot}%{_bindir}/njs
+# %%{__install} -p -D -m 0755 %{_builddir}/njs/build/njs %{buildroot}%{_bindir}/njs
 
 # Deleting unused files
 %{__rm} -f %{buildroot}%{nginx_confdir}/fastcgi.conf
