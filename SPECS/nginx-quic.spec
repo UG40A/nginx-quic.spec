@@ -31,7 +31,8 @@
 %global         ngx_brotli_version  v1.0.0rc
 %global         ngx_devel_kit_version         b4642d6ca01011bd8cd30b253f5c3872b384fd21
 
-%global					modsecurity_version 		v1.0.3
+%global					modsecurity_version v1.0.3
+%global         ngx_naxsi_version   d68c33b0d214318fc1abb7e6ef751b7539681cc9 
 %global         ngx_zstd_version    1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc
 
 # openresty:
@@ -62,8 +63,7 @@
 %global         ngx_immutable_version       v0.0.1
 
 ## build failed:
-# %%global         ngx_naxsi_version           1.3 
-# %%global         ngx_pagespeed_version   1.14.33.1-RC1
+%global         ngx_pagespeed_version   1.14.33.1-RC1
 
 ###
 
@@ -80,11 +80,14 @@ License:        BSD
 URL:            https://nginx.org/
 
 Source0:        https://hg.nginx.org/nginx-quic/archive/%{nginx_quic_commit}.tar.gz#/nginx-quic-%{nginx_quic_commit}.tar.gz
-# Source1:        https://hg.nginx.org/njs/archive/%{njs_version}.tar.gz#/njs-%{njs_version}.tar.gz
-# Patch0:         https://raw.githubusercontent.com/nginx-modules/ngx_http_tls_dyn_size/master/nginx__dynamic_tls_records_1.17.7%2B.patch
-# Patch0:         https://raw.githubusercontent.com/hakasenyang/openssl-patch/master/nginx_hpack_push_1.15.3.patch
-# Patch0:         https://raw.githubusercontent.com/hakasenyang/openssl-patch/master/remove_nginx_server_header.patch
-Patch0:           https://raw.githubusercontent.com/UG40A/nginx-quic.spec/master/SOURCES/dyntls_hpack.patch
+Source1:        https://hg.nginx.org/njs/archive/%{njs_version}.tar.gz#/njs-%{njs_version}.tar.gz
+Patch0:					https://raw.githubusercontent.com/UG40A/nginx-quic.spec/master/SOURCES/dyntls_hpack.patch
+
+# Multi.patch is:
+#	https://raw.githubusercontent.com/nginx-modules/ngx_http_tls_dyn_size/master/nginx__dynamic_tls_records_1.17.7%2B.patch
+#	https://raw.githubusercontent.com/hakasenyang/openssl-patch/master/nginx_hpack_push_1.15.3.patch
+# Patch: https://raw.githubusercontent.com/hakasenyang/openssl-patch/master/remove_nginx_server_header.patch \
+# has not been applied yet.
 
 Source10:       nginx.service
 Source11:       nginx.sysconf
@@ -133,8 +136,8 @@ Source220:      https://github.com/devnexen/nginx-module-sysguard/archive/%{ngx_
 Source221:      https://github.com/nginx-modules/ngx_cache_purge/archive/%{ngx_cache_purge_version}.tar.gz#/%{ngx_cache_purge_version}.tar.gz
 Source222:      https://github.com/vision5/ngx_devel_kit/archive/%{ngx_devel_kit_version}.tar.gz#/%{ngx_devel_kit_version}.tar.gz
 
-# Source223:      https://github.com/nbs-system/naxsi/archive/%%{ngx_naxsi_version}.tar.gz#/%%{ngx_naxsi_version}.tar.gz
-# Source224:      https://github.com/apache/incubator-pagespeed-ngx/archive/%%{ngx_pagespeed_version}.tar.gz#/%%{ngx_pagespeed_version}.tar.gz
+Source223:      https://github.com/nbs-system/naxsi/archive/%{ngx_naxsi_version}.tar.gz#/%{ngx_naxsi_version}.tar.gz
+Source224:      https://github.com/apache/incubator-pagespeed-ngx/archive/%{ngx_pagespeed_version}.tar.gz#/%{ngx_pagespeed_version}.tar.gz
 
 
 # Requires:       jemalloc
@@ -189,13 +192,13 @@ cd ${MODULE}
 %{__tar} -xf %{SOURCE101} --strip 1
 popd
 
-# pushd ..
-# MODULE="njs"
-# %%{__rm} -rf ${MODULE}
-# %%{__mkdir} ${MODULE}
-# cd ${MODULE}
-# %%{__tar} -xf %{SOURCE1} --strip 1
-# popd
+pushd ..
+MODULE="njs"
+%{__rm} -rf ${MODULE}
+%{__mkdir} ${MODULE}
+cd ${MODULE}
+%{__tar} -xf %{SOURCE1} --strip 1
+popd
 
 pushd ..
 MODULE="ngx_brotli"
@@ -381,26 +384,26 @@ cd ${MODULE}
 %{__tar} -xf %{SOURCE222} --strip 1
 popd
 
-# pushd ..
-# MODULE="ngx_naxsi"
-# %%{__rm} -rf ${MODULE}
-# %%{__mkdir} ${MODULE}
-# cd ${MODULE}
-# %%{__tar} -xf %{SOURCE223} --strip 1
-# popd
+pushd ..
+MODULE="ngx_naxsi"
+%{__rm} -rf ${MODULE}
+%{__mkdir} ${MODULE}
+cd ${MODULE}
+%{__tar} -xf %{SOURCE223} --strip 1
+popd
 
-# pushd ..
-# MODULE="ngx_pagespeed"
-# %%{__rm} -rf ${MODULE}
-# %%{__mkdir} ${MODULE}
-# cd ${MODULE}
-# %%{__tar} -xf %{SOURCE224} --strip 1
-# popd
+pushd ..
+MODULE="ngx_pagespeed"
+%{__rm} -rf ${MODULE}
+%{__mkdir} ${MODULE}
+cd ${MODULE}
+%{__tar} -xf %{SOURCE224} --strip 1
+popd
 
 %build
 source scl_source enable gcc-toolset-11
 
-EXCC_OPTS="-mtune=ampere1 -ftree-vectorize -fopenmp -ffast-math -flto"
+EXCC_OPTS="-mtune=ampere1 -ftree-vectorize -fopenmp -ffast-math -flto -pie -fPIE"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
@@ -430,7 +433,6 @@ export LDFLAGS;
   --build=%{name}-%{version}-%{release} \
   --with-threads \
   --with-file-aio \
-  --with-libatomic \
   --with-compat \
   --with-pcre-jit \
   --with-http_ssl_module \
@@ -461,32 +463,36 @@ export LDFLAGS;
   --with-http_v2_module \
   --with-mail \
   --with-mail_ssl_module \
-  # --add-dynamic-module=../njs/nginx \
+  --add-dynamic-module=../njs/nginx \
   --add-dynamic-module=../ngx_brotli \
   --add-dynamic-module=../ngx_http_geoip2_module \
   --add-dynamic-module=../nginx-module-vts \
   --add-dynamic-module=../echo-nginx-module \
-  --add-dynamic-module=../headers-more-nginx-module \
   --add-dynamic-module=../zstd-nginx-module \
   --add-dynamic-module=../ModSecurity-nginx \
   --add-dynamic-module=../ngx_memc \
-  --add-dynamic-module=../ngx_srcache \
   --add-dynamic-module=../ngx_pgs \
   --add-dynamic-module=../ngx_devel_kit \
   --add-dynamic-module=../ngx_set_misc \
   --add-dynamic-module=../ngx_dynamic_etag \
   --add-dynamic-module=../ngx_security_headers \
-  --add-dynamic-module=../ngx_immutable \
-  --add-dynamic-module=../ngx_secure_token \
-  --add-dynamic-module=../ngx_pta \
   --add-dynamic-module=../ngx_fancyindex \
   --add-dynamic-module=../ngx_push_stream \
-  --add-dynamic-module=../ngx_sticky \
   --add-dynamic-module=../ngx_cookie_flag \
   --add-dynamic-module=../ngx_sysguard \
-  --add-dynamic-module=../ngx_cache_purge 
-#  --add-dynamic-module=../ngx_naxsi \
-#  --add-dynamic-module=../ngx_pagespeed
+  --add-dynamic-module=../ngx_cache_purge \
+  --add-dynamic-module=../ngx_naxsi
+  
+  Failed to build:
+  Due to AARCH64:
+  #  --add-dynamic-module=../ngx_pagespeed \
+  Due to https://github.com/nginx/nginx/commit/3aef1d693f3cc431563a7e6a6aba6a34e5290f03:
+  #  --add-dynamic-module=../ngx_immutable \
+  #  --add-dynamic-module=../ngx_secure_token \
+  #  --add-dynamic-module=../ngx_pta \
+  #  --add-dynamic-module=../ngx_sticky \
+  #  --add-dynamic-module=../ngx_headers_more \
+  #  --add-dynamic-module=../ngx_srcache  
   
 %make_build
 
@@ -496,7 +502,7 @@ export LDFLAGS;
 %make_install INSTALLDIRS=vendor
 
 # njs bin
-# %%{__install} -p -D -m 0755 %{_builddir}/njs/build/njs %{buildroot}%{_bindir}/njs
+%{__install} -p -D -m 0755 %{_builddir}/njs/build/njs %{buildroot}%{_bindir}/njs
 
 # Deleting unused files
 %{__rm} -f %{buildroot}%{nginx_confdir}/fastcgi.conf
@@ -669,37 +675,14 @@ esac
 
 # njs
 %dir %{nginx_moddir}
-# %%{nginx_moddir}/ngx_http_js_module.so
-# %%{nginx_moddir}/ngx_stream_js_module.so
+%{nginx_moddir}/ngx_http_js_module.so
+%{nginx_moddir}/ngx_stream_js_module.so
 
 # Brotli
 %config(noreplace) %{nginx_confdir}/conf.d/http/brotli.conf
 %config(noreplace) %{nginx_confdir}/conf.modules.d/ngx_brotli.conf
-# %%{nginx_moddir}/ngx_http_brotli_filter_module.so
-# %%{nginx_moddir}/ngx_http_brotli_static_module.so
 
-# GeoIP
-# %%{nginx_moddir}/ngx_http_geoip_module.so
-
-# GeoIP2
-# %%{nginx_moddir}/ngx_http_geoip2_module.so
-# %%{nginx_moddir}/ngx_stream_geoip2_module.so
-
-# ModSecurity
-# %%{nginx_moddir}/ngx_http_modsecurity_module.so
-
-# VTS
-# %%{nginx_moddir}/ngx_http_vhost_traffic_status_module.so
-
-# util modules
-# %%{nginx_moddir}/ngx_http_echo_module.so
-# %%{nginx_moddir}/ngx_http_headers_more_filter_module.so
-
-# zstd moudle
-# %%{nginx_moddir}/ngx_http_zstd_filter_module.so
-# %%{nginx_moddir}/ngx_http_zstd_static_module.so
-
-# test
+# load all dynamic modules
 %{nginx_moddir}/*.so
 
 %changelog
