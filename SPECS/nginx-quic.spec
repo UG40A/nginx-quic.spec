@@ -36,10 +36,10 @@
 # openresty:
 %global         ngx_more_headers_version    v0.33
 %global         ngx_echo_version            v0.62
-%global         ngx_memc_version            0.19
-%global         ngx_set_misc_version        0.33
-%global         ngx_pgs_version             1.0.0
-%global         ngx_srcache_version         0.32
+%global         ngx_memc_version            v0.19
+%global         ngx_set_misc_version        v0.33
+%global         ngx_pgs_version             v1.0.0
+%global         ngx_srcache_version         v0.32
 
 # others:
 %global         ngx_geoip2_version          3.3
