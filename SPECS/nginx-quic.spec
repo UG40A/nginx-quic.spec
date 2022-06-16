@@ -498,7 +498,7 @@ export LDFLAGS;
   --add-dynamic-module=../ngx_cache_purge \
   --add-dynamic-module=../ngx_naxsi
   
-  Failed to build:
+  #Failed to build:
   # Due to AARCH64:
   #  --add-dynamic-module=../ngx_pagespeed \
   # Due to https://github.com/nginx/nginx/commit/3aef1d693f3cc431563a7e6a6aba6a34e5290f03:
