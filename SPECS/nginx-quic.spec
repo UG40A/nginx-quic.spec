@@ -141,6 +141,7 @@ Source224:      https://github.com/apache/incubator-pagespeed-ngx/archive/%{ngx_
 
 
 # Requires:       jemalloc
+# Requires:       mimalloc
 Requires:       brotli
 Requires:       libzstd
 Requires:       libslz
@@ -153,6 +154,7 @@ BuildRequires:    systemd
 BuildRequires:  make gcc automake autoconf libtool
 BuildRequires:  zlib-devel pcre-devel
 # BuildRequires:  jemalloc-devel
+# BuildRequires:  mimalloc-devel
 BuildRequires:  libunwind-devel
 BuildRequires:  libatomic_ops-devel
 BuildRequires:  brotli-devel
