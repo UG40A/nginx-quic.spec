@@ -30,20 +30,20 @@
 %global         quictls_version     3.0.3
 %global         ngx_brotli_version  v1.0.0rc
 
-%global         modsecurity-nginx_version 1.0.3 # ryoh's spec.
-%global         ngx_zstd_version    1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc # ryoh's spec.
+%global         modsecurity-nginx_version 1.0.3
+%global         ngx_zstd_version    1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc
 
 # openresty:
-%global         ngx_more_headers_version    v0.33 # ryoh's spec.
-%global         ngx_echo_version            v0.62 # ryoh's spec.
+%global         ngx_more_headers_version    v0.33
+%global         ngx_echo_version            v0.62
 %global         ngx_memc_version            0.19
 %global         ngx_set_misc_version        0.33
 %global         ngx_pgs_version             1.0.0
 %global         ngx_srcache_version         0.32
 
 # others:
-%global         ngx_geoip2_version          3.3 # ryoh's spec.
-%global         ngx_vts_version             v0.1.18  # ryoh's spec.   
+%global         ngx_geoip2_version          3.3
+%global         ngx_vts_version             v0.1.18  
 %global         ngx_pta_version             1.0.0
 %global         ngx_fancyindex_version      0.5.2
 %global         ngx_secure_token_version    d3d8cead244a0b3083c895043fa86de2f399d488
