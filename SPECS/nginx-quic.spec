@@ -256,11 +256,11 @@ cd ${MODULE}
 popd
 
 pushd ..
-MODULE="ngx_scache"
+MODULE="ngx_srcache"
 %{__rm} -rf ${MODULE}
 %{__mkdir} ${MODULE}
 cd ${MODULE}
-%{__tar} -xf %{SOURCE208} —strip 1
+%{__tar} -xf %{SOURCE208} --strip 1
 popd
 
 pushd ..
@@ -268,7 +268,7 @@ MODULE="ngx_pgs"
 %{__rm} -rf ${MODULE}
 %{__mkdir} ${MODULE}
 cd ${MODULE}
-%{__tar} -xf %{SOURCE209} —strip 1
+%{__tar} -xf %{SOURCE209} --strip 1
 popd
 
 pushd ..
@@ -276,7 +276,7 @@ MODULE="ngx_set_misc"
 %{__rm} -rf ${MODULE}
 %{__mkdir} ${MODULE}
 cd ${MODULE}
-%{__tar} -xf %{SOURCE210} —strip 1
+%{__tar} -xf %{SOURCE210} --strip 1
 popd
 
 pushd ..
@@ -284,7 +284,7 @@ MODULE="ngx_dynamic_etag"
 %{__rm} -rf ${MODULE}
 %{__mkdir} ${MODULE}
 cd ${MODULE}
-%{__tar} -xf %{SOURCE211} —strip 1
+%{__tar} -xf %{SOURCE211} --strip 1
 popd
 
 pushd ..
@@ -292,7 +292,7 @@ MODULE="ngx_security_headers"
 %{__rm} -rf ${MODULE}
 %{__mkdir} ${MODULE}
 cd ${MODULE}
-%{__tar} -xf %{SOURCE212} —strip 1
+%{__tar} -xf %{SOURCE212} --strip 1
 popd
 
 pushd ..
@@ -300,7 +300,7 @@ MODULE="ngx_immutable"
 %{__rm} -rf ${MODULE}
 %{__mkdir} ${MODULE}
 cd ${MODULE}
-%{__tar} -xf %{SOURCE213} —strip 1
+%{__tar} -xf %{SOURCE213} --strip 1
 popd
 
 pushd ..
@@ -308,7 +308,7 @@ MODULE="ngx_secure_token"
 %{__rm} -rf ${MODULE}
 %{__mkdir} ${MODULE}
 cd ${MODULE}
-%{__tar} -xf %{SOURCE214} —strip 1
+%{__tar} -xf %{SOURCE214} --strip 1
 popd
 
 pushd ..
@@ -316,7 +316,7 @@ MODULE="ngx_pta"
 %{__rm} -rf ${MODULE}
 %{__mkdir} ${MODULE}
 cd ${MODULE}
-%{__tar} -xf %{SOURCE215} —strip 1
+%{__tar} -xf %{SOURCE215} --strip 1
 popd
 
 pushd ..
@@ -324,7 +324,7 @@ MODULE="ngx_fancyindex"
 %{__rm} -rf ${MODULE}
 %{__mkdir} ${MODULE}
 cd ${MODULE}
-%{__tar} -xf %{SOURCE216} —strip 1
+%{__tar} -xf %{SOURCE216} --strip 1
 popd
 
 pushd ..
@@ -332,7 +332,7 @@ MODULE="ngx_push_stream"
 %{__rm} -rf ${MODULE}
 %{__mkdir} ${MODULE}
 cd ${MODULE}
-%{__tar} -xf %{SOURCE217} —strip 1
+%{__tar} -xf %{SOURCE217} --strip 1
 popd
 
 pushd ..
@@ -340,7 +340,7 @@ MODULE="ngx_sticky"
 %{__rm} -rf ${MODULE}
 %{__mkdir} ${MODULE}
 cd ${MODULE}
-%{__tar} -xf %{SOURCE218} —strip 1
+%{__tar} -xf %{SOURCE218} --strip 1
 popd
 
 pushd ..
@@ -348,7 +348,7 @@ MODULE="ngx_cookie_flag"
 %{__rm} -rf ${MODULE}
 %{__mkdir} ${MODULE}
 cd ${MODULE}
-%{__tar} -xf %{SOURCE219} —strip 1
+%{__tar} -xf %{SOURCE219} --strip 1
 popd
 
 pushd ..
@@ -356,7 +356,7 @@ MODULE="ngx_sysguard"
 %{__rm} -rf ${MODULE}
 %{__mkdir} ${MODULE}
 cd ${MODULE}
-%{__tar} -xf %{SOURCE220} —strip 1
+%{__tar} -xf %{SOURCE220} --strip 1
 popd
 
 pushd ..
@@ -364,7 +364,7 @@ MODULE="ngx_cache_purge"
 %{__rm} -rf ${MODULE}
 %{__mkdir} ${MODULE}
 cd ${MODULE}
-%{__tar} -xf %{SOURCE221} —strip 1
+%{__tar} -xf %{SOURCE221} --strip 1
 popd
 
 # pushd ..
@@ -372,7 +372,7 @@ popd
 # %%{__rm} -rf ${MODULE}
 # %%{__mkdir} ${MODULE}
 # cd ${MODULE}
-# %%{__tar} -xf %{SOURCE222} —strip 1
+# %%{__tar} -xf %{SOURCE222} --strip 1
 # popd
 
 # pushd ..
@@ -380,7 +380,7 @@ popd
 # %%{__rm} -rf ${MODULE}
 # %%{__mkdir} ${MODULE}
 # cd ${MODULE}
-# %%{__tar} -xf %{SOURCE223} —strip 1
+# %%{__tar} -xf %{SOURCE223} --strip 1
 # popd
 
 %build
