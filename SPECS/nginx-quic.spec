@@ -478,9 +478,7 @@ export LDFLAGS;
 %make_install INSTALLDIRS=vendor
 
 # njs bin
-%if 0%{?rhel} == 7
 %{__install} -p -D -m 0755 %{_builddir}/njs/build/njs %{buildroot}%{_bindir}/njs
-%endif
 
 # Deleting unused files
 %{__rm} -f %{buildroot}%{nginx_confdir}/fastcgi.conf
@@ -683,7 +681,8 @@ esac
 %{nginx_moddir}/ngx_http_zstd_filter_module.so
 %{nginx_moddir}/ngx_http_zstd_static_module.so
 
-%{nginx_moddir}/*.so # test
+# test
+%{nginx_moddir}/*.so
 
 %changelog
 * Tue Mar 22 2022 Ryoh Kawai <kawairyoh@gmail.com> - 1.21.6-4
