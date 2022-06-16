@@ -39,7 +39,7 @@
 %global         ngx_memc_version            v0.19
 %global         ngx_set_misc_version        v0.33
 %global         ngx_pgs_version             1.0
-%global         ngx_scache_version         v0.32
+%global         ngx_srcache_version         v0.32
 
 # others:
 %global         ngx_geoip2_version          3.3
@@ -113,7 +113,7 @@ Source205:      https://github.com/openresty/headers-more-nginx-module/archive/%
 Source206:      https://github.com/tokers/zstd-nginx-module/archive/%{ngx_zstd_version}.tar.gz#/zstd-nginx-module-%{ngx_zstd_version}.tar.gz
 
 Source207:      https://github.com/openresty/memc-nginx-module/archive/%{ngx_memc_version}.tar.gz#/memc-nginx-module-%{ngx_memc_version}.tar.gz
-Source208:      https://github.com/openresty/scache-nginx-module/archive/%{ngx_scache_version}.tar.gz#/scache-nginx-module-%{ngx_scache_version}.tar.gz
+Source208:      https://github.com/openresty/srcache-nginx-module/archive/%{ngx_srcache_version}.tar.gz#/srcache-nginx-module-%{ngx_srcache_version}.tar.gz
 Source209:      https://github.com/openresty/ngx_postgres/archive/%{ngx_pgs_version}.tar.gz#/ngx_postgres-%{ngx_pgs_version}.tar.gz
 Source210:      https://github.com/openresty/set-misc-nginx-module/archive/%{ngx_set_misc_version}.tar.gz#/set-misc-nginx-module-%{ngx_set_misc_version}.tar.gz
 
