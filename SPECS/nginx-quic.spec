@@ -23,6 +23,13 @@
 %global         nginx_uwsgi_cachedir   %{nginx_tempdir}/uwsgi_cache
 %global         nginx_scgi_cachedir    %{nginx_tempdir}/scgi_cache
 
+# Change ModSecurity RPATH behavior:
+# If $NGX_IGNORE_RPATH is set to "YES", we will ignore explicit
+# library path specification on resulting binary, allowing libmodsecurity.so
+# to be relocated across configured library pathes (adjust /etc/ld.so.conf
+# or set $LD_LIBRARY_PATH environment variable to manage them)
+%global         NGX_IGNORE_RPATH       YES
+
 %global         nginx_quic_commit   861f076eab72
 %global         njs_version         0.7.4
 %global         cf_zlib_version     1.2.8
