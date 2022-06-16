@@ -30,7 +30,7 @@
 %global         quictls_version     3.0.3
 %global         ngx_brotli_version  v1.0.0rc
 
-%global					modsecurity-nginx_version 		1.0.3
+%global					modsecurity-nginx_version 		v1.0.3
 %global         ngx_zstd_version    1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc
 
 # openresty:
