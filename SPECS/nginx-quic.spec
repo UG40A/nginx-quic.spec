@@ -457,7 +457,7 @@ export LDFLAGS;
   --add-dynamic-module=../zstd-nginx-module \
   --add-dynamic-module=../ModSecurity-nginx \
   --add-dynamic-module=../ngx_memc \
-  --add-dynamic-module=../ngx_scache \
+  --add-dynamic-module=../ngx_srcache \
   --add-dynamic-module=../ngx_pgs \
   --add-dynamic-module=../ngx_set_misc \
   --add-dynamic-module=../ngx_dynamic_etag \
