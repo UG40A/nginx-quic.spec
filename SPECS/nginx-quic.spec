@@ -418,7 +418,7 @@ popd
 %build
 source scl_source enable gcc-toolset-11
 
-EXCC_OPTS="-mtune=ampere1 -ftree-vectorize -fopenmp -ffast-math -flto -pie -fPIE"
+EXCC_OPTS="-mtune=ampere1 -ftree-vectorize -fuse-linker-plugin -fuse-ld=lld -fopenmp -ffast-math -flto -pie -fPIE"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
