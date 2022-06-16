@@ -61,8 +61,8 @@
 %global         ngx_immutable_version       0.0.1
 
 ## build failed:
-%%global         ngx_naxsi_version           1.3 
-%%global         ngx_pagespeed_version   1.14.33.1-RC1
+# %%global         ngx_naxsi_version           1.3 
+# %%global         ngx_pagespeed_version   1.14.33.1-RC1
 
 ###
 
