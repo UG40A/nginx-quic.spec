@@ -386,7 +386,7 @@ popd
 %build
 source scl_source enable gcc-toolset-11
 
-EXCC_OPTS="-mtune=ampere1 -O3 -ftree-vectorize -fopenmp -ffast-math -flto"
+EXCC_OPTS="-mtune=ampere1 -ftree-vectorize -fopenmp -ffast-math -flto"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
@@ -441,7 +441,7 @@ export LDFLAGS;
   --with-stream_ssl_preread_module \
   --with-stream_realip_module \
   --with-stream_geoip_module \
-  --with-stream_quic_module \
+ # --with-stream_quic_module \
   --with-select_module	\
   --with-http_xslt_module=dynamic \
   --with-http_image_filter_module=dynamic \
