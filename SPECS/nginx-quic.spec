@@ -89,6 +89,9 @@ Patch0:					https://raw.githubusercontent.com/UG40A/nginx-quic.spec/master/SOURC
 # Patch: https://raw.githubusercontent.com/hakasenyang/openssl-patch/master/remove_nginx_server_header.patch \
 # has not been applied yet.
 
+# Modsecurity patch:
+Patch1:         modsecurity_nginx_memleaks_and_severity.patch
+
 Source10:       nginx.service
 Source11:       nginx.sysconf
 Source12:       nginx.logrotate
