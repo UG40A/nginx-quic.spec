@@ -158,6 +158,7 @@ BuildRequires:  readline-devel
 BuildRequires:  perl-IPC-Cmd
 BuildRequires:  libzstd-devel
 BuildRequires:  libslz-devel
+BuildRequires:  libpq-devel
 BuildRequires:  gcc-toolset-11
 BuildRequires:  gcc-toolset-11-annobin-plugin-gcc
 
