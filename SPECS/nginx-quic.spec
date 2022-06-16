@@ -161,7 +161,7 @@ BuildRequires:  perl-IPC-Cmd
 BuildRequires:  libzstd-devel
 BuildRequires:  libslz-devel
 BuildRequires:  libpq-devel
-BuildRequires:  libgd-devel
+BuildRequires:  gd-devel
 BuildRequires:  libxslt-devel
 BuildRequires:  gcc-toolset-11
 BuildRequires:  gcc-toolset-11-annobin-plugin-gcc
