@@ -79,9 +79,10 @@ URL:            https://nginx.org/
 
 Source0:        https://hg.nginx.org/nginx-quic/archive/%{nginx_quic_commit}.tar.gz#/nginx-quic-%{nginx_quic_commit}.tar.gz
 Source1:        https://hg.nginx.org/njs/archive/%{njs_version}.tar.gz#/njs-%{njs_version}.tar.gz
-Patch0:         https://raw.githubusercontent.com/nginx-modules/ngx_http_tls_dyn_size/master/nginx__dynamic_tls_records_1.17.7%2B.patch
-Patch0:         https://raw.githubusercontent.com/hakasenyang/openssl-patch/master/nginx_hpack_push_1.15.3.patch
+# Patch0:         https://raw.githubusercontent.com/nginx-modules/ngx_http_tls_dyn_size/master/nginx__dynamic_tls_records_1.17.7%2B.patch
+# Patch0:         https://raw.githubusercontent.com/hakasenyang/openssl-patch/master/nginx_hpack_push_1.15.3.patch
 # Patch0:         https://raw.githubusercontent.com/hakasenyang/openssl-patch/master/remove_nginx_server_header.patch
+Patch0:           https://raw.githubusercontent.com/UG40A/nginx-quic.spec/master/SOURCES/dyntls_hpack.patch
 
 Source10:       nginx.service
 Source11:       nginx.sysconf
@@ -129,8 +130,8 @@ Source219:      https://github.com/acastlesibm/nginx_cookie_flag_module/archive/
 Source220:      https://github.com/devnexen/nginx-module-sysguard/archive/%{ngx_sysguard_version}.tar.gz#/%{ngx_sysguard_version}.tar.gz
 Source221:      https://github.com/nginx-modules/ngx_cache_purge/archive/%{ngx_cache_purge_version}.tar.gz#/%{ngx_cache_purge_version}.tar.gz
 
-Source222:      https://github.com/nbs-system/naxsi/archive/%{ngx_naxsi_version}.tar.gz#/%{ngx_naxsi_version}.tar.gz
-Source223:      https://github.com/apache/incubator-pagespeed-ngx/archive/%{ngx_pagespeed_version}.tar.gz#/%{ngx_pagespeed_version}.tar.gz
+# Source222:      https://github.com/nbs-system/naxsi/archive/%{ngx_naxsi_version}.tar.gz#/%{ngx_naxsi_version}.tar.gz
+# Source223:      https://github.com/apache/incubator-pagespeed-ngx/archive/%{ngx_pagespeed_version}.tar.gz#/%{ngx_pagespeed_version}.tar.gz
 
 
 # Requires:       jemalloc
@@ -365,21 +366,21 @@ cd ${MODULE}
 %{__tar} -xf %{SOURCE221} —strip 1
 popd
 
-pushd ..
-MODULE="ngx_naxsi"
-%{__rm} -rf ${MODULE}
-%{__mkdir} ${MODULE}
-cd ${MODULE}
-%{__tar} -xf %{SOURCE222} —strip 1
-popd
+# pushd ..
+# MODULE="ngx_naxsi"
+# %{__rm} -rf ${MODULE}
+# %{__mkdir} ${MODULE}
+# cd ${MODULE}
+# %{__tar} -xf %{SOURCE222} —strip 1
+# popd
 
-pushd ..
-MODULE="ngx_pagespeed"
-%{__rm} -rf ${MODULE}
-%{__mkdir} ${MODULE}
-cd ${MODULE}
-%{__tar} -xf %{SOURCE223} —strip 1
-popd
+# pushd ..
+# MODULE="ngx_pagespeed"
+# %{__rm} -rf ${MODULE}
+# %{__mkdir} ${MODULE}
+# cd ${MODULE}
+# %{__tar} -xf %{SOURCE223} —strip 1
+# popd
 
 %build
 source scl_source enable gcc-toolset-11
@@ -464,9 +465,9 @@ export LDFLAGS;
   --add-dynamic-module=../ngx_sticky \
   --add-dynamic-module=../ngx_cookie_flag \
   --add-dynamic-module=../ngx_sysguard \
-  --add-dynamic-module=../ngx_cache_purge \
-  --add-dynamic-module=../ngx_naxsi \
-  --add-dynamic-module=../ngx_pagespeed
+  --add-dynamic-module=../ngx_cache_purge 
+#  --add-dynamic-module=../ngx_naxsi \
+#  --add-dynamic-module=../ngx_pagespeed
   
 %make_build
 
