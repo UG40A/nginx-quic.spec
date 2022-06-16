@@ -39,13 +39,13 @@
 %global         ngx_memc_version            v0.19
 %global         ngx_set_misc_version        v0.33
 %global         ngx_pgs_version             1.0
-%global         ngx_srcache_version         v0.32
+%global         ngx_scache_version         v0.32
 
 # others:
 %global         ngx_geoip2_version          3.3
 %global         ngx_vts_version             v0.1.18  
-%global         ngx_pta_version             1.0.0
-%global         ngx_fancyindex_version      0.5.2
+%global         ngx_pta_version             v1.0.0
+%global         ngx_fancyindex_version      v0.5.2
 %global         ngx_secure_token_version    d3d8cead244a0b3083c895043fa86de2f399d488
 
 # forks:
@@ -56,9 +56,9 @@
 %global         ngx_cache_purge_version     2.5.2
 
 # GetPageSpeed repo:
-%global         ngx_security_headers_version 0.0.11
+%global         ngx_security_headers_version 0.0.1
 %global         ngx_dynamic_etag_version    0.2.1
-%global         ngx_immutable_version       0.0.1
+%global         ngx_immutable_version       v0.0.1
 
 ## build failed:
 # %%global         ngx_naxsi_version           1.3 
