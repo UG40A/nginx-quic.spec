@@ -394,7 +394,6 @@ LDFLAGS="%{?__global_ldflags} $(pcre-config --libs) -lslz" # -ljemalloc
 export LDFLAGS;
 
 ./auto/configure \
-  --with-debug \
   --with-ld-opt="${LDFLAGS}" \
   --with-cc-opt="${CFLAGS} -DTCP_FASTOPEN=23" \
   --with-openssl=../quictls \
@@ -422,7 +421,6 @@ export LDFLAGS;
   --with-pcre-jit \
   --with-http_ssl_module \
   --with-http_v2_module \
-  --with-http_v3_module \
   --with-http_realip_module \
   --with-http_addition_module \
   --with-http_sub_module \
@@ -444,6 +442,12 @@ export LDFLAGS;
   --with-stream_realip_module \
   --with-stream_geoip_module \
   --with-stream_quic_module \
+  --with-select_module	\
+  --with-http_xslt_module=dynamic \
+  --with-http_image_filter_module=dynamic \
+  --with-http_v2_module \
+  --with-mail \
+  --with-mail_ssl_module \
   --add-dynamic-module=../njs/nginx \
   --add-dynamic-module=../ngx_brotli \
   --add-dynamic-module=../ngx_http_geoip2_module \
