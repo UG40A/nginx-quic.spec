@@ -1,0 +1,271 @@
+From 0dc5fdf1e105058c19eef70f8c0d669d5626d0ac Mon Sep 17 00:00:00 2001
+From: Liu DongMiao <liudongmiao@gmail.com>
+Date: Sun, 24 Apr 2022 19:45:57 +0800
+Subject: [PATCH 1/2] fix memory leak in rules
+
+---
+ headers/modsecurity/rule_with_actions.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/headers/modsecurity/rule_with_actions.h b/headers/modsecurity/rule_with_actions.h
+index 4b7db43f7..1319b6b25 100644
+--- a/headers/modsecurity/rule_with_actions.h
++++ b/headers/modsecurity/rule_with_actions.h
+@@ -43,7 +43,7 @@ class RuleWithActions : public Rule {
+         std::unique_ptr<std::string> fileName,
+         int lineNumber);
+ 
+-    ~RuleWithActions();
++    virtual ~RuleWithActions();
+ 
+     RuleWithActions(const RuleWithActions& r)
+         : Rule(r),
+
+From 08b5353aa3b1a67273f9b38d10dc46d915d9a14e Mon Sep 17 00:00:00 2001
+From: Liu Dongmiao <liudongmiao@made-in-china.com>
+Date: Sun, 24 Apr 2022 19:52:36 +0800
+Subject: [PATCH 2/2] fix memory patch, part 2
+
+---
+ src/parser/driver.cc          |  4 ++--
+ src/parser/location.hh        |  4 ++--
+ src/parser/seclang-parser.cc  | 14 +++++++-------
+ src/parser/seclang-parser.yy  | 14 +++++++-------
+ src/parser/seclang-scanner.cc |  6 +++---
+ src/parser/seclang-scanner.ll |  6 +++---
+ 6 files changed, 24 insertions(+), 24 deletions(-)
+
+diff --git a/src/parser/driver.cc b/src/parser/driver.cc
+index c8d15b48a..8505a4992 100644
+--- a/src/parser/driver.cc
++++ b/src/parser/driver.cc
+@@ -129,9 +129,9 @@ int Driver::parse(const std::string &f, const std::string &ref) {
+     m_lastRule = nullptr;
+     loc.push_back(new yy::location());
+     if (ref.empty()) {
+-        loc.back()->begin.filename = loc.back()->end.filename = new std::string("<<reference missing or not informed>>");
++        loc.back()->begin.filename = loc.back()->end.filename = std::make_shared<const std::string>("<<reference missing or not informed>>");
+     } else {
+-        loc.back()->begin.filename = loc.back()->end.filename = new std::string(ref);
++        loc.back()->begin.filename = loc.back()->end.filename = std::make_shared<const std::string>(ref);
+     }
+ 
+     if (f.empty()) {
+diff --git a/src/parser/location.hh b/src/parser/location.hh
+index 314b0693a..0f414d831 100644
+--- a/src/parser/location.hh
++++ b/src/parser/location.hh
+@@ -80,7 +80,7 @@ namespace yy {
+                      counter_type l = 1,
+                      counter_type c = 1)
+     {
+-      filename = fn;
++      filename = std::shared_ptr<filename_type>(fn);
+       line = l;
+       column = c;
+     }
+@@ -105,7 +105,7 @@ namespace yy {
+     /** \} */
+ 
+     /// File name to which this position refers.
+-    filename_type* filename;
++    std::shared_ptr<filename_type> filename;
+     /// Current line number.
+     counter_type line;
+     /// Current column number.
+diff --git a/src/parser/seclang-parser.cc b/src/parser/seclang-parser.cc
+index 98af1904c..9f6bf6892 100644
+--- a/src/parser/seclang-parser.cc
++++ b/src/parser/seclang-parser.cc
+@@ -1321,7 +1321,7 @@ namespace yy {
+ #line 319 "seclang-parser.yy"
+ {
+   // Initialize the initial location.
+-  yyla.location.begin.filename = yyla.location.end.filename = new std::string(driver.file);
++  yyla.location.begin.filename = yyla.location.end.filename = std::make_shared<const std::string>(driver.file);
+ }
+ 
+ #line 1328 "seclang-parser.cc"
+@@ -2287,7 +2287,7 @@ namespace yy {
+ #line 1076 "seclang-parser.yy"
+       {
+         std::vector<actions::Action *> *a = new std::vector<actions::Action *>();
+-        std::vector<actions::transformations::Transformation *> *t = new std::vector<actions::transformations::Transformation *>();
++        auto t = std::make_shared<std::vector<actions::transformations::Transformation *>>();
+         for (auto &i : *yystack_[0].value.as < std::unique_ptr<std::vector<std::unique_ptr<actions::Action> > >  > ().get()) {
+             if (dynamic_cast<actions::transformations::Transformation *>(i.get())) {
+               t->push_back(dynamic_cast<actions::transformations::Transformation *>(i.release()));
+@@ -2305,7 +2305,7 @@ namespace yy {
+             /* op */ op,
+             /* variables */ v,
+             /* actions */ a,
+-            /* transformations */ t,
++            /* transformations */ t.get(),
+             /* file name */ std::unique_ptr<std::string>(new std::string(*yystack_[3].location.end.filename)),
+             /* line number */ yystack_[3].location.end.line
+             ));
+@@ -2344,7 +2344,7 @@ namespace yy {
+ #line 1125 "seclang-parser.yy"
+       {
+         std::vector<actions::Action *> *a = new std::vector<actions::Action *>();
+-        std::vector<actions::transformations::Transformation *> *t = new std::vector<actions::transformations::Transformation *>();
++        auto t = std::make_shared<std::vector<actions::transformations::Transformation *>>();
+         for (auto &i : *yystack_[0].value.as < std::unique_ptr<std::vector<std::unique_ptr<actions::Action> > >  > ().get()) {
+             if (dynamic_cast<actions::transformations::Transformation *>(i.get())) {
+               t->push_back(dynamic_cast<actions::transformations::Transformation *>(i.release()));
+@@ -2354,7 +2354,7 @@ namespace yy {
+         }
+         std::unique_ptr<RuleUnconditional> rule(new RuleUnconditional(
+             /* actions */ a,
+-            /* transformations */ t,
++            /* transformations */ t.get(),
+             /* file name */ std::unique_ptr<std::string>(new std::string(*yystack_[1].location.end.filename)),
+             /* line number */ yystack_[1].location.end.line
+             ));
+@@ -2368,7 +2368,7 @@ namespace yy {
+       {
+         std::string err;
+         std::vector<actions::Action *> *a = new std::vector<actions::Action *>();
+-        std::vector<actions::transformations::Transformation *> *t = new std::vector<actions::transformations::Transformation *>();
++        auto t = std::make_shared<std::vector<actions::transformations::Transformation *>>();
+         for (auto &i : *yystack_[0].value.as < std::unique_ptr<std::vector<std::unique_ptr<actions::Action> > >  > ().get()) {
+             if (dynamic_cast<actions::transformations::Transformation *>(i.get())) {
+               t->push_back(dynamic_cast<actions::transformations::Transformation *>(i.release()));
+@@ -2379,7 +2379,7 @@ namespace yy {
+         std::unique_ptr<RuleScript> r(new RuleScript(
+             /* path to script */ yystack_[1].value.as < std::string > (),
+             /* actions */ a,
+-            /* transformations */ t,
++            /* transformations */ t.get(),
+             /* file name */ std::unique_ptr<std::string>(new std::string(*yystack_[1].location.end.filename)),
+             /* line number */ yystack_[1].location.end.line
+             ));
+diff --git a/src/parser/seclang-parser.yy b/src/parser/seclang-parser.yy
+index 0cbbee084..63d65cae7 100644
+--- a/src/parser/seclang-parser.yy
++++ b/src/parser/seclang-parser.yy
+@@ -318,7 +318,7 @@ using namespace modsecurity::operators;
+ %initial-action
+ {
+   // Initialize the initial location.
+-  @$.begin.filename = @$.end.filename = new std::string(driver.file);
++  @$.begin.filename = @$.end.filename = std::make_shared<const std::string>(driver.file);
+ };
+ %define parse.trace
+ %define parse.error verbose
+@@ -1075,7 +1075,7 @@ expression:
+     | DIRECTIVE variables op actions
+       {
+         std::vector<actions::Action *> *a = new std::vector<actions::Action *>();
+-        std::vector<actions::transformations::Transformation *> *t = new std::vector<actions::transformations::Transformation *>();
++        auto t = std::make_shared<std::vector<actions::transformations::Transformation *>>();
+         for (auto &i : *$4.get()) {
+             if (dynamic_cast<actions::transformations::Transformation *>(i.get())) {
+               t->push_back(dynamic_cast<actions::transformations::Transformation *>(i.release()));
+@@ -1093,7 +1093,7 @@ expression:
+             /* op */ op,
+             /* variables */ v,
+             /* actions */ a,
+-            /* transformations */ t,
++            /* transformations */ t.get(),
+             /* file name */ std::unique_ptr<std::string>(new std::string(*@1.end.filename)),
+             /* line number */ @1.end.line
+             ));
+@@ -1124,7 +1124,7 @@ expression:
+     | CONFIG_DIR_SEC_ACTION actions
+       {
+         std::vector<actions::Action *> *a = new std::vector<actions::Action *>();
+-        std::vector<actions::transformations::Transformation *> *t = new std::vector<actions::transformations::Transformation *>();
++        auto t = std::make_shared<std::vector<actions::transformations::Transformation *>>();
+         for (auto &i : *$2.get()) {
+             if (dynamic_cast<actions::transformations::Transformation *>(i.get())) {
+               t->push_back(dynamic_cast<actions::transformations::Transformation *>(i.release()));
+@@ -1134,7 +1134,7 @@ expression:
+         }
+         std::unique_ptr<RuleUnconditional> rule(new RuleUnconditional(
+             /* actions */ a,
+-            /* transformations */ t,
++            /* transformations */ t.get(),
+             /* file name */ std::unique_ptr<std::string>(new std::string(*@1.end.filename)),
+             /* line number */ @1.end.line
+             ));
+@@ -1144,7 +1144,7 @@ expression:
+       {
+         std::string err;
+         std::vector<actions::Action *> *a = new std::vector<actions::Action *>();
+-        std::vector<actions::transformations::Transformation *> *t = new std::vector<actions::transformations::Transformation *>();
++        auto t = std::make_shared<std::vector<actions::transformations::Transformation *>>();
+         for (auto &i : *$2.get()) {
+             if (dynamic_cast<actions::transformations::Transformation *>(i.get())) {
+               t->push_back(dynamic_cast<actions::transformations::Transformation *>(i.release()));
+@@ -1155,7 +1155,7 @@ expression:
+         std::unique_ptr<RuleScript> r(new RuleScript(
+             /* path to script */ $1,
+             /* actions */ a,
+-            /* transformations */ t,
++            /* transformations */ t.get(),
+             /* file name */ std::unique_ptr<std::string>(new std::string(*@1.end.filename)),
+             /* line number */ @1.end.line
+             ));
+diff --git a/src/parser/seclang-scanner.cc b/src/parser/seclang-scanner.cc
+index 99fd50ca8..9e8554191 100644
+--- a/src/parser/seclang-scanner.cc
++++ b/src/parser/seclang-scanner.cc
+@@ -8526,7 +8526,7 @@ YY_RULE_SETUP
+         std::string err;
+         std::string f = modsecurity::utils::find_resource(s, *driver.loc.back()->end.filename, &err);
+         driver.loc.push_back(new yy::location());
+-        driver.loc.back()->begin.filename = driver.loc.back()->end.filename = new std::string(f);
++        driver.loc.back()->begin.filename = driver.loc.back()->end.filename = std::make_shared<const std::string>(f);
+         yyin = fopen(f.c_str(), "r" );
+         if (!yyin) {
+             BEGIN(INITIAL);
+@@ -8557,7 +8557,7 @@ YY_RULE_SETUP
+     for (auto& s: files) {
+         std::string f = modsecurity::utils::find_resource(s, *driver.loc.back()->end.filename, &err);
+         driver.loc.push_back(new yy::location());
+-        driver.loc.back()->begin.filename = driver.loc.back()->end.filename = new std::string(f);
++        driver.loc.back()->begin.filename = driver.loc.back()->end.filename = std::make_shared<const std::string>(f);
+ 
+         yyin = fopen(f.c_str(), "r" );
+         if (!yyin) {
+@@ -8590,7 +8590,7 @@ YY_RULE_SETUP
+     c.setKey(key);
+ 
+     driver.loc.push_back(new yy::location());
+-    driver.loc.back()->begin.filename = driver.loc.back()->end.filename = new std::string(url);
++    driver.loc.back()->begin.filename = driver.loc.back()->end.filename = std::make_shared<const std::string>(url);
+     YY_BUFFER_STATE temp = YY_CURRENT_BUFFER;
+     yypush_buffer_state(temp);
+ 
+diff --git a/src/parser/seclang-scanner.ll b/src/parser/seclang-scanner.ll
+index 8f26cd6fb..02a85d877 100755
+--- a/src/parser/seclang-scanner.ll
++++ b/src/parser/seclang-scanner.ll
+@@ -1253,7 +1253,7 @@ EQUALS_MINUS                            (?i:=\-)
+         std::string err;
+         std::string f = modsecurity::utils::find_resource(s, *driver.loc.back()->end.filename, &err);
+         driver.loc.push_back(new yy::location());
+-        driver.loc.back()->begin.filename = driver.loc.back()->end.filename = new std::string(f);
++        driver.loc.back()->begin.filename = driver.loc.back()->end.filename = std::make_shared<const std::string>(f);
+         yyin = fopen(f.c_str(), "r" );
+         if (!yyin) {
+             BEGIN(INITIAL);
+@@ -1281,7 +1281,7 @@ EQUALS_MINUS                            (?i:=\-)
+     for (auto& s: files) {
+         std::string f = modsecurity::utils::find_resource(s, *driver.loc.back()->end.filename, &err);
+         driver.loc.push_back(new yy::location());
+-        driver.loc.back()->begin.filename = driver.loc.back()->end.filename = new std::string(f);
++        driver.loc.back()->begin.filename = driver.loc.back()->end.filename = std::make_shared<const std::string>(f);
+ 
+         yyin = fopen(f.c_str(), "r" );
+         if (!yyin) {
+@@ -1310,7 +1310,7 @@ EQUALS_MINUS                            (?i:=\-)
+     c.setKey(key);
+ 
+     driver.loc.push_back(new yy::location());
+-    driver.loc.back()->begin.filename = driver.loc.back()->end.filename = new std::string(url);
++    driver.loc.back()->begin.filename = driver.loc.back()->end.filename = std::make_shared<const std::string>(url);
+     YY_BUFFER_STATE temp = YY_CURRENT_BUFFER;
+     yypush_buffer_state(temp);
+ 
