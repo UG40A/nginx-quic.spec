@@ -159,6 +159,7 @@ BuildRequires:  perl-IPC-Cmd
 BuildRequires:  libzstd-devel
 BuildRequires:  libslz-devel
 BuildRequires:  gcc-toolset-11
+BuildRequires:  gcc-toolset-11-annobin-plugin-gcc
 
 %description
 nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server,
