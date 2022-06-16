@@ -138,7 +138,7 @@ Source221:      https://github.com/nginx-modules/ngx_cache_purge/archive/%{ngx_c
 # Requires:       jemalloc
 Requires:       brotli
 Requires:       libzstd
-# Requires:       libslz
+Requires:       libslz
 Requires(pre):  shadow-utils
 Requires(post):   systemd 
 Requires(preun):  systemd 
@@ -390,7 +390,7 @@ EXCC_OPTS="-mtune=ampere1 -ftree-vectorize -fopenmp -ffast-math -flto"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
-LDFLAGS="%{?__global_ldflags} $(pcre-config --libs)"
+LDFLAGS="%{?__global_ldflags} $(pcre-config --libs) -lslz"
 export LDFLAGS;
 
 ./auto/configure \
