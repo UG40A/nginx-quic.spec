@@ -245,6 +245,142 @@ cd ${MODULE}
 %{__tar} -xf %{SOURCE206} --strip 1
 popd
 
+pushd ..
+MODULE="ngx_memc"
+%{__rm} -rf ${MODULE}
+%{__mkdir} ${MODULE}
+cd ${MODULE}
+%{__tar} -xf %{SOURCE207} --strip 1
+popd
+
+pushd ..
+MODULE="ngx_scache"
+%{__rm} -rf ${MODULE}
+%{__mkdir} ${MODULE}
+cd ${MODULE}
+%{__tar} -xf %{SOURCE208} —strip 1
+popd
+
+pushd ..
+MODULE="ngx_pgs"
+%{__rm} -rf ${MODULE}
+%{__mkdir} ${MODULE}
+cd ${MODULE}
+%{__tar} -xf %{SOURCE209} —strip 1
+popd
+
+pushd ..
+MODULE="ngx_set_misc"
+%{__rm} -rf ${MODULE}
+%{__mkdir} ${MODULE}
+cd ${MODULE}
+%{__tar} -xf %{SOURCE210} —strip 1
+popd
+
+pushd ..
+MODULE="ngx_dynamic_etag"
+%{__rm} -rf ${MODULE}
+%{__mkdir} ${MODULE}
+cd ${MODULE}
+%{__tar} -xf %{SOURCE211} —strip 1
+popd
+
+pushd ..
+MODULE="ngx_security_headers"
+%{__rm} -rf ${MODULE}
+%{__mkdir} ${MODULE}
+cd ${MODULE}
+%{__tar} -xf %{SOURCE212} —strip 1
+popd
+
+pushd ..
+MODULE="ngx_immutable"
+%{__rm} -rf ${MODULE}
+%{__mkdir} ${MODULE}
+cd ${MODULE}
+%{__tar} -xf %{SOURCE213} —strip 1
+popd
+
+pushd ..
+MODULE="ngx_secure_token"
+%{__rm} -rf ${MODULE}
+%{__mkdir} ${MODULE}
+cd ${MODULE}
+%{__tar} -xf %{SOURCE214} —strip 1
+popd
+
+pushd ..
+MODULE="ngx_pta"
+%{__rm} -rf ${MODULE}
+%{__mkdir} ${MODULE}
+cd ${MODULE}
+%{__tar} -xf %{SOURCE215} —strip 1
+popd
+
+pushd ..
+MODULE="ngx_fancyindex"
+%{__rm} -rf ${MODULE}
+%{__mkdir} ${MODULE}
+cd ${MODULE}
+%{__tar} -xf %{SOURCE216} —strip 1
+popd
+
+pushd ..
+MODULE="ngx_push_stream"
+%{__rm} -rf ${MODULE}
+%{__mkdir} ${MODULE}
+cd ${MODULE}
+%{__tar} -xf %{SOURCE217} —strip 1
+popd
+
+pushd ..
+MODULE="ngx_sticky"
+%{__rm} -rf ${MODULE}
+%{__mkdir} ${MODULE}
+cd ${MODULE}
+%{__tar} -xf %{SOURCE218} —strip 1
+popd
+
+pushd ..
+MODULE="ngx_cookie_flag"
+%{__rm} -rf ${MODULE}
+%{__mkdir} ${MODULE}
+cd ${MODULE}
+%{__tar} -xf %{SOURCE219} —strip 1
+popd
+
+pushd ..
+MODULE="ngx_sysguard"
+%{__rm} -rf ${MODULE}
+%{__mkdir} ${MODULE}
+cd ${MODULE}
+%{__tar} -xf %{SOURCE220} —strip 1
+popd
+
+pushd ..
+MODULE="ngx_cache_purge"
+%{__rm} -rf ${MODULE}
+%{__mkdir} ${MODULE}
+cd ${MODULE}
+%{__tar} -xf %{SOURCE221} —strip 1
+popd
+
+pushd ..
+MODULE="ngx_naxsi"
+%{__rm} -rf ${MODULE}
+%{__mkdir} ${MODULE}
+cd ${MODULE}
+%{__tar} -xf %{SOURCE222} —strip 1
+popd
+
+pushd ..
+MODULE="ngx_pagespeed"
+%{__rm} -rf ${MODULE}
+%{__mkdir} ${MODULE}
+cd ${MODULE}
+%{__tar} -xf %{SOURCE223} —strip 1
+popd
+
 %build
 source scl_source enable gcc-toolset-11
 
@@ -313,7 +449,24 @@ export LDFLAGS;
   --add-dynamic-module=../echo-nginx-module \
   --add-dynamic-module=../headers-more-nginx-module \
   --add-dynamic-module=../zstd-nginx-module \
-  --add-dynamic-module=../ModSecurity-nginx 
+  --add-dynamic-module=../ModSecurity-nginx \
+  --add-dynamic-module=../ngx_memc \
+  --add-dynamic-module=../ngx_scache \
+  --add-dynamic-module=../ngx_pgs \
+  --add-dynamic-module=../ngx_set_misc \
+  --add-dynamic-module=../ngx_dynamic_etag \
+  --add-dynamic-module=../ngx_security_headers \
+  --add-dynamic-module=../ngx_immutable \
+  --add-dynamic-module=../ngx_secure_token \
+  --add-dynamic-module=../ngx_pta \
+  --add-dynamic-module=../ngx_fancyindex \
+  --add-dynamic-module=../ngx_push_stream \
+  --add-dynamic-module=../ngx_sticky \
+  --add-dynamic-module=../ngx_cookie_flag \
+  --add-dynamic-module=../ngx_sysguard \
+  --add-dynamic-module=../ngx_cache_purge \
+  --add-dynamic-module=../ngx_naxsi \
+  --add-dynamic-module=../ngx_pagespeed
   
 %make_build
 
@@ -528,6 +681,7 @@ esac
 %{nginx_moddir}/ngx_http_zstd_filter_module.so
 %{nginx_moddir}/ngx_http_zstd_static_module.so
 
+%{nginx_moddir}/*.so # test
 
 %changelog
 * Tue Mar 22 2022 Ryoh Kawai <kawairyoh@gmail.com> - 1.21.6-4
