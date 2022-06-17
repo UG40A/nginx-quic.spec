@@ -157,7 +157,7 @@ Requires(preun):  systemd
 Requires(postun): systemd 
 BuildRequires:    systemd
 
-BuildRequires:  make gcc automake autoconf libtool
+BuildRequires:  make clang automake autoconf libtool
 BuildRequires:  zlib-devel pcre-devel
 # BuildRequires:  jemalloc-devel
 # BuildRequires:  mimalloc-devel
@@ -173,7 +173,8 @@ BuildRequires:  libslz-devel
 BuildRequires:  libpq-devel
 BuildRequires:  gd-devel
 BuildRequires:  libxslt-devel
-BuildRequires:  gcc-toolset-11 gcc-toolset-11-annobin-plugin-gcc 
+# BuildRequires:  gcc-toolset-11 gcc-toolset-11-annobin-plugin-gcc 
+BuildRequires:   llvm-toolset-11
 
 %description
 nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server,
@@ -407,7 +408,7 @@ cd ${MODULE}
 popd
 
 %build
-source scl_source enable gcc-toolset-11
+#source scl_source enable gcc-toolset-11
 
 # Change ModSecurity RPATH behavior:
 # If NGX_IGNORE_RPATH is set to "YES", we will ignore explicit
@@ -419,8 +420,7 @@ NGX_IGNORE_RPATH="NO"
 MODSECURITY_LIB="/usr/local/lib"
 MODSECURITY_INC="/usr/local/include"
 
-
-EXCC_OPTS="-mtune=neoverse-n1 -ftree-vectorize -fuse-linker-plugin -fopenmp -ffast-math -flto -fPIE -fPIC -pie"
+EXCC_OPTS="-mcpu=native -fsanitize=address,undefined -ftree-vectorize -fopenmp -flto=thin -fPIE -pie -Xlinker --apply-dynamic-relocs -Xlinker -fuse-ld=lld -Xlinker -fuse-linker-plugin"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
@@ -430,7 +430,7 @@ export LDFLAGS;
 
 ./auto/configure \
   --with-ld-opt="${LDFLAGS}" \
-  --with-cc-opt="${CFLAGS} -DTCP_FASTOPEN=23" \
+  --with-cc-opt="${CFLAGS} -O3 -ffast-math -DTCP_FASTOPEN=23" \
   --with-openssl=../quictls \
   --with-openssl-opt="enable-ktls enable-fips zlib" \
   --prefix=%{nginx_home} \
