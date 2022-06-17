@@ -430,7 +430,7 @@ export LDFLAGS;
 
 ./auto/configure \
   --with-ld-opt="${LDFLAGS}" \
-  --with-cc-opt="${CFLAGS} -O3 -ffast-math -DTCP_FASTOPEN=23" \
+  --with-cc-opt="${CFLAGS} -ffast-math -DTCP_FASTOPEN=23" \
   --with-openssl=../quictls \
   --with-openssl-opt="enable-ktls enable-fips zlib" \
   --prefix=%{nginx_home} \
