@@ -420,6 +420,12 @@ NGX_IGNORE_RPATH="NO"
 MODSECURITY_LIB="/usr/local/lib"
 MODSECURITY_INC="/usr/local/include"
 
+
+CC="clang"
+CXX="clang++"
+AR="llvm-ar"
+NM="llvm-nm"
+RANLIB="llvm-ranlib"
 EXCC_OPTS="-mcpu=native -fsanitize=address,undefined -ftree-vectorize -fopenmp -flto=thin -fPIE"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
