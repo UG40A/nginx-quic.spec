@@ -68,7 +68,7 @@
 ###
 
 %global         pkg_name            nginx-quic
-%global         main_version        1.21.6
+%global         main_version        1.22
 %global         main_release        4%{?dist}.quictls%{quictls_version}
 
 Name:           %{pkg_name}
