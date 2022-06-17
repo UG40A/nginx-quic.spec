@@ -29,9 +29,9 @@
 %global         zlib_ng_version     2.0.6
 %global         quictls_version     3.0.3
 %global         ngx_brotli_version  v1.0.0rc
-%global         ngx_devel_kit_version         b4642d6ca01011bd8cd30b253f5c3872b384fd21
+%global         ngx_devel_kit_version 	b4642d6ca01011bd8cd30b253f5c3872b384fd21
 
-%global					modsecurity_version v1.0.3
+%global					modsecurity_version	v1.0.3
 %global         ngx_naxsi_version   d68c33b0d214318fc1abb7e6ef751b7539681cc9 
 %global         ngx_zstd_version    1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc
 
