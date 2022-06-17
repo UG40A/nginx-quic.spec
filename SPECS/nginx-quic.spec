@@ -157,7 +157,7 @@ Requires(preun):  systemd
 Requires(postun): systemd 
 BuildRequires:    systemd
 
-BuildRequires:  make clang automake autoconf libtool
+BuildRequires:  make gcc automake autoconf libtool
 BuildRequires:  zlib-devel pcre-devel
 # BuildRequires:  jemalloc-devel
 # BuildRequires:  mimalloc-devel
@@ -173,8 +173,8 @@ BuildRequires:  libslz-devel
 BuildRequires:  libpq-devel
 BuildRequires:  gd-devel
 BuildRequires:  libxslt-devel
-# BuildRequires:  gcc-toolset-11 gcc-toolset-11-annobin-plugin-gcc 
-BuildRequires:   llvm-toolset
+BuildRequires:  gcc-toolset-11 gcc-toolset-11-annobin-plugin-gcc 
+# BuildRequires:   llvm-toolset
 
 %description
 nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server,
@@ -408,7 +408,7 @@ cd ${MODULE}
 popd
 
 %build
-#source scl_source enable gcc-toolset-11
+source scl_source enable gcc-toolset-11
 
 # Change ModSecurity RPATH behavior:
 # If NGX_IGNORE_RPATH is set to "YES", we will ignore explicit
@@ -421,17 +421,16 @@ MODSECURITY_LIB="/usr/local/lib"
 MODSECURITY_INC="/usr/local/include"
 
 
-export CC="clang"
-export CXX="clang++"
-export AR="llvm-ar"
-export NM="llvm-nm"
-export RANLIB="llvm-ranlib"
-EXCC_OPTS="-mcpu=native -fopenmp"
+# export CC="clang"
+# export CXX="clang++"
+# export AR="llvm-ar"
+# export NM="llvm-nm"
+# export RANLIB="llvm-ranlib"
+EXCC_OPTS="-mcpu=native+ssb+ssbs+crypto+rcpc -ftree-vectorize -fuse-linker-plugin -fopenmp -fPIE -pie"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
-LDFLAGS="%{?__global_ldflags}"
-#LDFLAGS="%%{?__global_ldflags} $(pcre-config --libs) -lslz"
+LDFLAGS="%%{?__global_ldflags} $(pcre-config --libs) -pie -lslz"
 export LDFLAGS;
 
 ./auto/configure \
