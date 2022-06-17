@@ -478,6 +478,8 @@ export LDFLAGS;
   --with-http_xslt_module=dynamic \
   --with-http_image_filter_module=dynamic \
   --with-http_v2_module \
+  --with-http_v3_module \
+  --with-stream_quic_module \
   --with-mail \
   --with-mail_ssl_module \
   --add-dynamic-module=../ngx_brotli \
