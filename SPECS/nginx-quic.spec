@@ -430,7 +430,7 @@ EXCC_OPTS="-mcpu=native -ftree-vectorize -fuse-linker-plugin -fopenmp -fPIE -pie
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
-LDFLAGS="%{?__global_ldflags} $(pcre-config --libs) -pie -lslz"
+LDFLAGS="%{?__global_ldflags} $(pcre-config --libs) -lslz"
 export LDFLAGS;
 
 ./auto/configure \
