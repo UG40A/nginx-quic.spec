@@ -23,7 +23,7 @@
 %global         nginx_uwsgi_cachedir   %{nginx_tempdir}/uwsgi_cache
 %global         nginx_scgi_cachedir    %{nginx_tempdir}/scgi_cache
 
-%global         nginx_quic_commit   861f076eab72
+%global         nginx_quic_commit   5b1011b5702b
 %global         njs_version         0.7.4
 %global         cf_zlib_version     1.2.8
 %global         zlib_ng_version     2.0.6
@@ -496,18 +496,17 @@ export LDFLAGS;
   --add-dynamic-module=../ngx_cookie_flag \
   --add-dynamic-module=../ngx_sysguard \
   --add-dynamic-module=../ngx_cache_purge \
-  --add-dynamic-module=../ngx_naxsi/naxsi_src
+  --add-dynamic-module=../ngx_naxsi/naxsi_src \
+  --add-dynamic-module=../ngx_immutable \
+  --add-dynamic-module=../ngx_secure_token \
+  --add-dynamic-module=../ngx_pta \
+  --add-dynamic-module=../ngx_sticky \
+  --add-dynamic-module=../ngx_headers_more \
+  --add-dynamic-module=../ngx_srcache
   
   #Failed to build:
   # Due to AARCH64:
   #  --add-dynamic-module=../ngx_pagespeed \
-  # Due to https://github.com/nginx/nginx/commit/3aef1d693f3cc431563a7e6a6aba6a34e5290f03:
-  #  --add-dynamic-module=../ngx_immutable \
-  #  --add-dynamic-module=../ngx_secure_token \
-  #  --add-dynamic-module=../ngx_pta \
-  #  --add-dynamic-module=../ngx_sticky \
-  #  --add-dynamic-module=../ngx_headers_more \
-  #  --add-dynamic-module=../ngx_srcache  \
   # Due to LibModSecurity.so.3 linking problems (WIP):
   #  --add-dynamic-module=../ModSecurity-nginx
   
