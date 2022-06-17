@@ -90,7 +90,10 @@ Patch0:					https://raw.githubusercontent.com/UG40A/nginx-quic.spec/master/SOURC
 # has not been applied yet.
 
 # Modsecurity patch:
-Patch1:         modsecurity_nginx_memleaks_and_severity.patch
+Patch2:         modsecurity_nginx_memleaks_and_severity.patch
+
+# Naxsi patch:
+Patch223:       naxsi_header.patch
 
 Source10:       nginx.service
 Source11:       nginx.sysconf
