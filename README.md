@@ -7,11 +7,13 @@ nginx quic preview package.
 - Enable QUIC and HTTP/3
 - SSL library uses quictls (Support kernel TLS)
 - Use cloudflare zlib
-- Use jemalloc
-- Enable debug option
+- Use jemalloc or mimalloc optionally (-secure is WIP, all commented)
+- Many dynamic modules
+- ~~Enable debug option~~
 - Enable FastTCP option
-- And some optimize (Disable LTO)
-
+- And some optimize for Ampere A1 CPU (~~Disable~~ Enable LTO, -mtune=ampere1 and etc.)
+- ASLR enabled (-fPIC, -fPIE)
+- WIP, to be continued.
 ## Build
 
 Requirement
