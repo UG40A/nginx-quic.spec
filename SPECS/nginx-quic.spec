@@ -517,9 +517,6 @@ export LDFLAGS;
 %{__mkdir} -p "%{buildroot}"
 %make_install INSTALLDIRS=vendor
 
-# njs bin
-%{__install} -p -D -m 0755 %{_builddir}/njs/build/njs %{buildroot}%{_bindir}/njs
-
 # Deleting unused files
 %{__rm} -f %{buildroot}%{nginx_confdir}/fastcgi.conf
 %{__rm} -f %{buildroot}%{nginx_confdir}/*.default
