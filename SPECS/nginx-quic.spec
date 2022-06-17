@@ -420,7 +420,7 @@ MODSECURITY_LIB="/usr/local/lib"
 MODSECURITY_INC="/usr/local/include"
 
 
-EXCC_OPTS="-mtune=ampere1 -ftree-vectorize -fuse-linker-plugin -fopenmp -ffast-math -flto -fPIE -fPIC -pie"
+EXCC_OPTS="-mtune=neoverse-n1 -ftree-vectorize -fuse-linker-plugin -fopenmp -ffast-math -flto -fPIE -fPIC -pie"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
