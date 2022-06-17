@@ -479,7 +479,6 @@ export LDFLAGS;
   --with-http_v2_module \
   --with-mail \
   --with-mail_ssl_module \
-  --add-dynamic-module=../njs/nginx \
   --add-dynamic-module=../ngx_brotli \
   --add-dynamic-module=../ngx_http_geoip2_module \
   --add-dynamic-module=../nginx-module-vts \
