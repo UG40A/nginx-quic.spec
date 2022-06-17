@@ -420,11 +420,11 @@ NGX_IGNORE_RPATH="NO"
 MODSECURITY_LIB="/usr/local/lib"
 MODSECURITY_INC="/usr/local/include"
 
-EXCC_OPTS="-mcpu=native -fsanitize=address,undefined -ftree-vectorize -fopenmp -flto=thin -fPIE -pie"
+EXCC_OPTS="-mcpu=native -fsanitize=address,undefined -ftree-vectorize -fopenmp -flto=thin -fPIE"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
-LDFLAGS="%{?__global_ldflags} -L $(pcre-config --libs)"
+LDFLAGS="%{?__global_ldflags} -L $(pcre-config --libs) -lslz"
 #LDFLAGS="%%{?__global_ldflags} $(pcre-config --libs) -lslz"
 export LDFLAGS;
 
