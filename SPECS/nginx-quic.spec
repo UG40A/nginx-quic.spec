@@ -509,6 +509,7 @@ export LDFLAGS;
   #  --add-dynamic-module=../ModSecurity-nginx
   # Due to "struct in6_pktinfo pkt6; undefined" error:
   # --add-dynamic-module=../ngx_naxsi/naxsi_src
+  # Due to strange error: njs/nginx
   
 %make_build
 
