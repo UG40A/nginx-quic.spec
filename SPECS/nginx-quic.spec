@@ -498,7 +498,6 @@ export LDFLAGS;
   --add-dynamic-module=../ngx_cookie_flag \
   --add-dynamic-module=../ngx_sysguard \
   --add-dynamic-module=../ngx_cache_purge \
-  --add-dynamic-module=../ngx_naxsi/naxsi_src \
   --add-dynamic-module=../ngx_immutable \
   --add-dynamic-module=../ngx_secure_token \
   --add-dynamic-module=../ngx_pta \
@@ -511,6 +510,8 @@ export LDFLAGS;
   #  --add-dynamic-module=../ngx_pagespeed \
   # Due to LibModSecurity.so.3 linking problems (WIP):
   #  --add-dynamic-module=../ModSecurity-nginx
+  # Due to "struct in6_pktinfo pkt6; undefined" error:
+  # --add-dynamic-module=../ngx_naxsi/naxsi_src
   
 %make_build
 
