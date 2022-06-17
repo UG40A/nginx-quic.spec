@@ -564,10 +564,6 @@ unlink %{buildroot}%{nginx_confdir}/win-utf
 # nginx modules conf
 %{__install} -p -d -m 0755 %{buildroot}%{nginx_confdir}/conf.modules.d/
 
-# Brotli
-%config(noreplace) %{nginx_confdir}/conf.d/http/brotli.conf
-%config(noreplace) %{nginx_confdir}/conf.modules.d/ngx_brotli.conf
-
 # brotli module
 cat <<__EOL__ > %{buildroot}%{nginx_confdir}/conf.modules.d/ngx_brotli.conf
 load_module "%{nginx_moddir}/ngx_http_brotli_filter_module.so";
@@ -649,6 +645,10 @@ esac
 %files
 %defattr(-,root,root)
 %{_sbindir}/nginx
+
+# Brotli
+%config(noreplace) %{nginx_confdir}/conf.d/http/brotli.conf
+%config(noreplace) %{nginx_confdir}/conf.modules.d/ngx_brotli.conf
 
 %config(noreplace) %{nginx_confdir}/nginx.conf
 %config(noreplace) %{nginx_confdir}/mime.types
