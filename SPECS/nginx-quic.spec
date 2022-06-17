@@ -420,7 +420,7 @@ NGX_IGNORE_RPATH="NO"
 MODSECURITY_LIB="/usr/local/lib"
 MODSECURITY_INC="/usr/local/include"
 
-EXCC_OPTS="-mcpu=native -fsanitize=address,undefined -ftree-vectorize -fopenmp -flto=thin -fPIE -pie -Xlinker --apply-dynamic-relocs -Xlinker -fuse-ld=lld -Xlinker -fuse-linker-plugin"
+EXCC_OPTS="-mcpu=native -fsanitize=address,undefined -ftree-vectorize -fopenmp -flto=thin -fPIE -pie"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
