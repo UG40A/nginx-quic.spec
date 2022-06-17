@@ -484,7 +484,6 @@ export LDFLAGS;
   --add-dynamic-module=../nginx-module-vts \
   --add-dynamic-module=../echo-nginx-module \
   --add-dynamic-module=../zstd-nginx-module \
-  --add-dynamic-module=../ModSecurity-nginx \
   --add-dynamic-module=../ngx_memc \
   --add-dynamic-module=../ngx_pgs \
   --add-dynamic-module=../ngx_devel_kit \
