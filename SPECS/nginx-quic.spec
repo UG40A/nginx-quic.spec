@@ -408,6 +408,7 @@ popd
 
 %build
 source scl_source enable gcc-toolset-11
+source /opt/rh/gcc-toolset-11/enable
 
 # Change ModSecurity RPATH behavior:
 # If NGX_IGNORE_RPATH is set to "YES", we will ignore explicit
