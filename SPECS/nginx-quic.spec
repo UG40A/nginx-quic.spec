@@ -159,20 +159,18 @@ BuildRequires:  zlib-devel pcre-devel
 # BuildRequires:  jemalloc-devel
 # BuildRequires:  mimalloc-devel
 BuildRequires:  libunwind-devel
-BuildRequires:  libatomic_ops-devel
 BuildRequires:  brotli-devel
 BuildRequires:  openssl-devel
 BuildRequires:  GeoIP-devel
 BuildRequires:  libmaxminddb-devel
 BuildRequires:  readline-devel
-BuildRequires:  perl-IPC-Cmd
+BuildRequires:  perl-IPC-Cmd perl-CPAN
 BuildRequires:  libzstd-devel
 BuildRequires:  libslz-devel
 BuildRequires:  libpq-devel
 BuildRequires:  gd-devel
 BuildRequires:  libxslt-devel
-BuildRequires:  gcc-toolset-11
-BuildRequires:  gcc-toolset-11-annobin-plugin-gcc
+BuildRequires:  gcc-toolset-11 gcc-toolset-11-annobin-plugin-gcc 
 
 %description
 nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server,
@@ -409,12 +407,12 @@ popd
 source scl_source enable gcc-toolset-11
 
 # Change ModSecurity RPATH behavior:
-# If $NGX_IGNORE_RPATH is set to "YES", we will ignore explicit
+# If NGX_IGNORE_RPATH is set to "YES", we will ignore explicit
 # library path specification on resulting binary, allowing libmodsecurity.so
 # to be relocated across configured library pathes (adjust /etc/ld.so.conf
 # or set $LD_LIBRARY_PATH environment variable to manage them)
 NGX_IGNORE_RPATH="NO"
-# Explicit PATH env (only for $NGX_IGNORE_RPATH=NO):
+# Explicit PATH env (only for NGX_IGNORE_RPATH=NO):
 MODSECURITY_LIB="/usr/local/lib"
 MODSECURITY_INC="/usr/local/include"
 
@@ -423,7 +421,8 @@ EXCC_OPTS="-mtune=ampere1 -ftree-vectorize -fuse-linker-plugin -fopenmp -ffast-m
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
-LDFLAGS="%{?__global_ldflags} $(pcre-config --libs) -fuse-ld=lld -pie -lslz"
+LDFLAGS="%{?__global_ldflags} $(pcre-config --libs) -lslz"
+#LDFLAGS="%%{?__global_ldflags} $(pcre-config --libs) -fuse-ld=lld -pie -lslz"
 export LDFLAGS;
 
 ./auto/configure \
@@ -497,7 +496,7 @@ export LDFLAGS;
   --add-dynamic-module=../ngx_cookie_flag \
   --add-dynamic-module=../ngx_sysguard \
   --add-dynamic-module=../ngx_cache_purge \
-  --add-dynamic-module=../ngx_naxsi
+  --add-dynamic-module=../ngx_naxsi/naxsi_src
   
   #Failed to build:
   # Due to AARCH64:
@@ -508,7 +507,9 @@ export LDFLAGS;
   #  --add-dynamic-module=../ngx_pta \
   #  --add-dynamic-module=../ngx_sticky \
   #  --add-dynamic-module=../ngx_headers_more \
-  #  --add-dynamic-module=../ngx_srcache  
+  #  --add-dynamic-module=../ngx_srcache  \
+  # Due to LibModSecurity.so.3 linking problems (WIP):
+  #  --add-dynamic-module=../ModSecurity-nginx
   
 %make_build
 
