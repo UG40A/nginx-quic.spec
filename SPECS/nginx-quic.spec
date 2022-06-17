@@ -421,16 +421,16 @@ MODSECURITY_LIB="/usr/local/lib"
 MODSECURITY_INC="/usr/local/include"
 
 
-CC="clang"
-CXX="clang++"
-AR="llvm-ar"
-NM="llvm-nm"
-RANLIB="llvm-ranlib"
-EXCC_OPTS="-mcpu=native -fsanitize=address,undefined -ftree-vectorize -fopenmp -flto=thin -fPIE"
+export CC="clang"
+export CXX="clang++"
+export AR="llvm-ar"
+export NM="llvm-nm"
+export RANLIB="llvm-ranlib"
+EXCC_OPTS="-mcpu=native -fopenmp"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
-LDFLAGS="%{?__global_ldflags}"
+LDFLAGS="%{?__global_ldflags} $(pcre-config --libs) -lslz"
 #LDFLAGS="%%{?__global_ldflags} $(pcre-config --libs) -lslz"
 export LDFLAGS;
 
