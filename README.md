@@ -3,14 +3,14 @@
 nginx quic preview package build for AARCH64 Ampere A1 CPU.
 
 - Enable QUIC and HTTP/3
-- SSL library uses quictls (Support kernel TLS)
+- SSL library uses quictls 3.0.x (Support kernel TLS, FIPS, ZLIB)
 - Use cloudflare zlib
 - Use jemalloc or mimalloc optionally (-secure is WIP, all commented)
 - Many dynamic modules
 - ~~Enable debug option~~
 - Enable FastTCP option
-- And some optimize for Ampere A1 CPU (~~Disable~~ Enable LTO, -mtune=ampere1 and etc.)
-- ASLR enabled (-fPIC, -fPIE)
+- And some optimize for Neoverse-N1 CPU (~~Disable~~ Enable LTO, -mtune=native/neoverse-1 and etc.)
+- ASLR enabled (-fPIC, -fPIE -pie)
 - WIP, to be continued.
 ## Build
 
