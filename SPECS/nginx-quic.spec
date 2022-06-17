@@ -174,7 +174,7 @@ BuildRequires:  libpq-devel
 BuildRequires:  gd-devel
 BuildRequires:  libxslt-devel
 # BuildRequires:  gcc-toolset-11 gcc-toolset-11-annobin-plugin-gcc 
-BuildRequires:   llvm-toolset-11
+BuildRequires:   llvm-toolset
 
 %description
 nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server,
