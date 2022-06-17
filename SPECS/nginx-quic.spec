@@ -174,7 +174,6 @@ BuildRequires:  libpq-devel
 BuildRequires:  gd-devel
 BuildRequires:  libxslt-devel
 BuildRequires:  gcc-toolset-11 gcc-toolset-11-annobin-plugin-gcc 
-# BuildRequires:   llvm-toolset
 
 %description
 nginx [engine x] is an HTTP and reverse proxy server, a mail proxy server,
@@ -420,12 +419,6 @@ NGX_IGNORE_RPATH="NO"
 MODSECURITY_LIB="/usr/local/lib"
 MODSECURITY_INC="/usr/local/include"
 
-
-# export CC="clang"
-# export CXX="clang++"
-# export AR="llvm-ar"
-# export NM="llvm-nm"
-# export RANLIB="llvm-ranlib"
 EXCC_OPTS="-mcpu=native -ftree-vectorize -fuse-linker-plugin -fopenmp -fPIE -fPIC -shared -pie"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
