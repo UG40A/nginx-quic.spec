@@ -500,7 +500,7 @@ export LDFLAGS;
   --add-dynamic-module=../ngx_secure_token \
   --add-dynamic-module=../ngx_pta \
   --add-dynamic-module=../ngx_sticky \
-  --add-dynamic-module=../ngx_headers_more \
+  --add-dynamic-module=../headers-more-nginx-module \
   --add-dynamic-module=../ngx_srcache
   
   #Failed to build:
