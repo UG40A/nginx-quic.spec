@@ -646,10 +646,6 @@ esac
 %defattr(-,root,root)
 %{_sbindir}/nginx
 
-# Brotli
-%config(noreplace) %{nginx_confdir}/conf.d/http/brotli.conf
-%config(noreplace) %{nginx_confdir}/conf.modules.d/ngx_brotli.conf
-
 %config(noreplace) %{nginx_confdir}/nginx.conf
 %config(noreplace) %{nginx_confdir}/mime.types
 %config(noreplace) %{nginx_confdir}/fastcgi_params
@@ -689,6 +685,9 @@ esac
 %dir %{nginx_fastcgi_cachedir}
 %dir %{nginx_uwsgi_cachedir}
 %dir %{nginx_scgi_cachedir}
+
+%config(noreplace) %{nginx_confdir}/conf.d/http/brotli.conf
+%config(noreplace) %{nginx_confdir}/conf.modules.d/ngx_brotli.conf
 
 %dir %{nginx_moddir}
 
