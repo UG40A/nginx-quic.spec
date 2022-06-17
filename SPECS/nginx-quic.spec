@@ -51,7 +51,7 @@
 %global         ngx_secure_token_version    d3d8cead244a0b3083c895043fa86de2f399d488
 
 # forks:
-%global         ngx_push_stream_version     20819c8eac960b480b82192e65a64c49c59f73e3
+%global         ngx_push_stream_version     ead73a54cfd32dd804087580c41041648dcf5240
 %global         ngx_sticky_version          e26ad8c81dd729343234531a6d47c029bad59153
 %global         ngx_cookie_flag_version     1cfba16c22d39743240d734fc0c04f7ed1c5929b
 %global         ngx_sysguard_version        aa65c0b71b23229bd9408cc69096bfe2838c34ce
