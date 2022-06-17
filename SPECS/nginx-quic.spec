@@ -426,11 +426,11 @@ export CXX="clang++"
 export AR="llvm-ar"
 export NM="llvm-nm"
 export RANLIB="llvm-ranlib"
-EXCC_OPTS="-mcpu=native -fopenmp"
+EXCC_OPTS="-mcpu=native"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
-LDFLAGS="%{?__global_ldflags} $(pcre-config --libs) -lslz"
+LDFLAGS="%{?__global_ldflags}"
 #LDFLAGS="%%{?__global_ldflags} $(pcre-config --libs) -lslz"
 export LDFLAGS;
 
