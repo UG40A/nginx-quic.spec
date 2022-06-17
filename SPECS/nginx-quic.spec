@@ -689,14 +689,7 @@ esac
 %dir %{nginx_uwsgi_cachedir}
 %dir %{nginx_scgi_cachedir}
 
-# njs
 %dir %{nginx_moddir}
-%{nginx_moddir}/ngx_http_js_module.so
-%{nginx_moddir}/ngx_stream_js_module.so
-
-# Brotli
-%config(noreplace) %{nginx_confdir}/conf.d/http/brotli.conf
-%config(noreplace) %{nginx_confdir}/conf.modules.d/ngx_brotli.conf
 
 # load all dynamic modules
 %{nginx_moddir}/*.so
