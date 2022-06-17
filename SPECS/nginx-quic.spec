@@ -426,7 +426,7 @@ MODSECURITY_INC="/usr/local/include"
 # export AR="llvm-ar"
 # export NM="llvm-nm"
 # export RANLIB="llvm-ranlib"
-EXCC_OPTS="-mcpu=native+ssb+ssbs+crypto+rcpc -ftree-vectorize -fuse-linker-plugin -fopenmp -fPIE"
+EXCC_OPTS="-mcpu=native+ssb+ssbs+crypto+rcpc"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
