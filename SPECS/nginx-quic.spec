@@ -417,12 +417,12 @@ MODSECURITY_LIB="/usr/local/lib"
 MODSECURITY_INC="/usr/local/include"
 
 
-EXCC_OPTS="-mtune=ampere1 -ftree-vectorize -fuse-linker-plugin -fopenmp -ffast-math -flto -fPIE"
+EXCC_OPTS="-mtune=ampere1 -ftree-vectorize -fuse-linker-plugin -fopenmp -ffast-math -flto -fPIE -fPIC -pie"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
 LDFLAGS="%{?__global_ldflags} $(pcre-config --libs) -lslz"
-#LDFLAGS="%%{?__global_ldflags} $(pcre-config --libs) -fuse-ld=lld -pie -lslz"
+#LDFLAGS="%%{?__global_ldflags} $(pcre-config --libs) -lslz"
 export LDFLAGS;
 
 ./auto/configure \
