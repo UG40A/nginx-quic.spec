@@ -421,18 +421,30 @@ MODSECURITY_LIB="/usr/local/lib"
 MODSECURITY_INC="/usr/local/include"
 
 export MAKEFLAGS='-j$(nproc)'
-EXCC_OPTS="-mcpu=native -O3 -ftree-vectorize -fuse-linker-plugin -fuse-ld=gold -fopenmp -flto"
+EXCC_OPTS="-mcpu=native -O3 -ftree-vectorize -fuse-linker-plugin -fuse-ld=lld -fopenmp -flto"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
-LDFLAGS="%{?__global_ldflags} $(pcre-config --libs) -lslz"
+LDFLAGS="%{?__global_ldflags} $(pcre-config --libs)  -lslz"
 export LDFLAGS;
+
+# Dynamic: 
+# CFLAGS: -fPIC
+# openssl-opts: -fPIC shared (enable-fips)
+# Nginx-modules: "add-dynamic-module=../"
+#
+# Fully-Static: 
+# CFLAGS: -fPIE -pie
+# openssl-opts: -fPIE -pie (fips NOT supported, because strict-shared)
+# Nginx-modules: "add-module=../"
+#
+# WIP: add args filter .so nginx dynamic modules and executable: -fPIC to libs and -fPIE to executable only
 
 ./auto/configure \
   --with-ld-opt="${LDFLAGS} -pie" \
-  --with-cc-opt="${CFLAGS} -fPIC -ffast-math -DTCP_FASTOPEN=23" \
+  --with-cc-opt="${CFLAGS} -fPIE -ffast-math -DTCP_FASTOPEN=23" \
   --with-openssl=../quictls \
-  --with-openssl-opt="-O3 -fPIC shared enable-ktls enable-fips zlib" \
+  --with-openssl-opt="-O3 -fPIE -pie no-shared no-module enable-ktls zlib" \
   --prefix=%{nginx_home} \
   --sbin-path=%{_sbindir}/nginx \
   --modules-path=%{nginx_moddir} \
@@ -483,6 +495,7 @@ export LDFLAGS;
   --with-stream_quic_module \
   --with-mail \
   --with-mail_ssl_module \
+  --add-dynamic-module=../njs/nginx \
   --add-dynamic-module=../ngx_brotli \
   --add-dynamic-module=../ngx_http_geoip2_module \
   --add-dynamic-module=../nginx-module-vts \
@@ -503,8 +516,8 @@ export LDFLAGS;
   --add-dynamic-module=../ngx_secure_token \
   --add-dynamic-module=../ngx_pta \
   --add-dynamic-module=../ngx_sticky \
-  --add-dynamic-module=../headers-more-nginx-module \
-  --add-dynamic-module=../ngx_srcache
+  --add-module=../headers-more-nginx-module \
+  --add-module=../ngx_srcache
   
   #Failed to build:
   # Due to AARCH64:
@@ -513,7 +526,6 @@ export LDFLAGS;
   #  --add-dynamic-module=../ModSecurity-nginx
   # Due to "struct in6_pktinfo pkt6; undefined" error:
   # --add-dynamic-module=../ngx_naxsi/naxsi_src
-  # Due to strange error: njs/nginx
   
 %make_build
 
