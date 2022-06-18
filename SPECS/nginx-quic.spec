@@ -429,8 +429,8 @@ LDFLAGS="%{?__global_ldflags} $(pcre-config --libs) -lslz"
 export LDFLAGS;
 
 ./auto/configure \
-  --with-ld-opt="${LDFLAGS} -fPIE -pie" \
-  --with-cc-opt="${CFLAGS} -ffast-math -DTCP_FASTOPEN=23" \
+  --with-ld-opt="${LDFLAGS} -pie" \
+  --with-cc-opt="${CFLAGS} -fPIC -ffast-math -DTCP_FASTOPEN=23" \
   --with-openssl=../quictls \
   --with-openssl-opt="-O3 -fPIC shared enable-ktls enable-fips zlib" \
   --prefix=%{nginx_home} \
