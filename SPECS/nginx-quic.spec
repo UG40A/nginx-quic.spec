@@ -407,7 +407,7 @@ cd ${MODULE}
 popd
 
 %build
-source scl_source enable gcc-toolset-11
+scl_source enable gcc-toolset-11
 # source /opt/rh/gcc-toolset-11/enable
 
 # Change ModSecurity RPATH behavior:
@@ -510,7 +510,7 @@ export LDFLAGS;
   --add-module=../ngx_fancyindex \
   --add-module=../ngx_push_stream \
   --add-module=../ngx_cookie_flag \
-  --addmodule=../ngx_sysguard \
+  --add-module=../ngx_sysguard \
   --add-module=../ngx_cache_purge \
   --add-module=../ngx_immutable \
   --add-module=../ngx_secure_token \
