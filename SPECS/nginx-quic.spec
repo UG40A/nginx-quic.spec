@@ -431,7 +431,7 @@ export LDFLAGS;
   --with-ld-opt="${LDFLAGS}" \
   --with-cc-opt="${CFLAGS} -ffast-math -DTCP_FASTOPEN=23" \
   --with-openssl=../quictls \
-  --with-openssl-opt="enable-ktls zlib -O3 -DOPENSSL_USE_NODELETE -pic -shared" \
+  --with-openssl-opt="-fPIC shared enable-ktls enable-fips zlib -O3 -DOPENSSL_USE_NODELETE" \
   --prefix=%{nginx_home} \
   --sbin-path=%{_sbindir}/nginx \
   --modules-path=%{nginx_moddir} \
