@@ -420,18 +420,18 @@ NGX_IGNORE_RPATH="NO"
 MODSECURITY_LIB="/usr/local/lib"
 MODSECURITY_INC="/usr/local/include"
 
-EXCC_OPTS="-mcpu=native -ftree-vectorize -fuse-linker-plugin -fuse-ld=lld -fopenmp -fPIC"
+EXCC_OPTS="-mcpu=native -ftree-vectorize -fuse-linker-plugin -fuse-ld=lld -fopenmp"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
-LDFLAGS="%{?__global_ldflags} $(pcre-config --libs) -pie -lslz"
+LDFLAGS="%{?__global_ldflags} $(pcre-config --libs) -lslz"
 export LDFLAGS;
 
 ./auto/configure \
-  --with-ld-opt="${LDFLAGS} -pie" \
+  --with-ld-opt="${LDFLAGS} -fPIE -pie" \
   --with-cc-opt="${CFLAGS} -ffast-math -DTCP_FASTOPEN=23" \
   --with-openssl=../quictls \
-  --with-openssl-opt="shared enable-ktls enable-fips zlib" \
+  --with-openssl-opt="-fPIC shared enable-ktls enable-fips zlib" \
   --prefix=%{nginx_home} \
   --sbin-path=%{_sbindir}/nginx \
   --modules-path=%{nginx_moddir} \
