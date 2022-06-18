@@ -157,7 +157,7 @@ Requires(preun):  systemd
 Requires(postun): systemd 
 BuildRequires:    systemd
 
-BuildRequires:  make gcc automake autoconf libtool
+BuildRequires:  make gcc lld automake autoconf libtool
 BuildRequires:  zlib-devel pcre-devel
 # BuildRequires:  jemalloc-devel
 # BuildRequires:  mimalloc-devel
