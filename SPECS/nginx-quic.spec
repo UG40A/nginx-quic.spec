@@ -421,7 +421,7 @@ MODSECURITY_LIB="/usr/local/lib"
 MODSECURITY_INC="/usr/local/include"
 
 export MAKEFLAGS='-j$(nproc)'
-EXCC_OPTS="-mcpu=native -O3 -ftree-vectorize -fuse-linker-plugin -fuse-ld=lld -fopenmp -flto"
+EXCC_OPTS="-mcpu=native -O3 -ftree-vectorize -fuse-linker-plugin -fuse-ld=gold -fopenmp -flto"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
@@ -429,7 +429,7 @@ LDFLAGS="%{?__global_ldflags} $(pcre-config --libs) -lslz"
 export LDFLAGS;
 
 ./auto/configure \
-  --with-ld-opt="${LDFLAGS} -pie" \
+  --with-ld-opt="${LDFLAGS} -fPIE -pie" \
   --with-cc-opt="${CFLAGS} -ffast-math -DTCP_FASTOPEN=23" \
   --with-openssl=../quictls \
   --with-openssl-opt="-O3 -fPIC shared enable-ktls enable-fips zlib" \
