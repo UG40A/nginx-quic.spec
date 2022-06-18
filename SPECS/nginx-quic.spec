@@ -481,41 +481,41 @@ export LDFLAGS;
   --with-http_degradation_module \
   --with-http_slice_module \
   --with-http_stub_status_module \
-  --with-http_geoip_module=dynamic \
+  --with-http_geoip_module \
   --with-stream \
   --with-stream_ssl_module \
   --with-stream_ssl_preread_module \
   --with-stream_realip_module \
   --with-stream_geoip_module \
   --with-select_module	\
-  --with-http_xslt_module=dynamic \
-  --with-http_image_filter_module=dynamic \
+  --with-http_xslt_module \
+  --with-http_image_filter_module \
   --with-http_v2_module \
   --with-http_v3_module \
   --with-stream_quic_module \
   --with-mail \
   --with-mail_ssl_module \
-  --add-dynamic-module=../njs/nginx \
-  --add-dynamic-module=../ngx_brotli \
-  --add-dynamic-module=../ngx_http_geoip2_module \
-  --add-dynamic-module=../nginx-module-vts \
-  --add-dynamic-module=../echo-nginx-module \
-  --add-dynamic-module=../zstd-nginx-module \
-  --add-dynamic-module=../ngx_memc \
-  --add-dynamic-module=../ngx_pgs \
-  --add-dynamic-module=../ngx_devel_kit \
-  --add-dynamic-module=../ngx_set_misc \
-  --add-dynamic-module=../ngx_dynamic_etag \
-  --add-dynamic-module=../ngx_security_headers \
-  --add-dynamic-module=../ngx_fancyindex \
-  --add-dynamic-module=../ngx_push_stream \
-  --add-dynamic-module=../ngx_cookie_flag \
-  --add-dynamic-module=../ngx_sysguard \
-  --add-dynamic-module=../ngx_cache_purge \
-  --add-dynamic-module=../ngx_immutable \
-  --add-dynamic-module=../ngx_secure_token \
-  --add-dynamic-module=../ngx_pta \
-  --add-dynamic-module=../ngx_sticky \
+  --add-module=../njs/nginx \
+  --add-module=../ngx_brotli \
+  --add-module=../ngx_http_geoip2_module \
+  --add-module=../nginx-module-vts \
+  --add-module=../echo-nginx-module \
+  --add-module=../zstd-nginx-module \
+  --add-module=../ngx_memc \
+  --add-module=../ngx_pgs \
+  --add-module=../ngx_devel_kit \
+  --add-module=../ngx_set_misc \
+  --add-module=../ngx_dynamic_etag \
+  --add-module=../ngx_security_headers \
+  --add-module=../ngx_fancyindex \
+  --add-module=../ngx_push_stream \
+  --add-module=../ngx_cookie_flag \
+  --addmodule=../ngx_sysguard \
+  --add-module=../ngx_cache_purge \
+  --add-module=../ngx_immutable \
+  --add-module=../ngx_secure_token \
+  --add-module=../ngx_pta \
+  --add-module=../ngx_sticky \
   --add-module=../headers-more-nginx-module \
   --add-module=../ngx_srcache
   
