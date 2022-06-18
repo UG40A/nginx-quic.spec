@@ -420,11 +420,11 @@ NGX_IGNORE_RPATH="NO"
 MODSECURITY_LIB="/usr/local/lib"
 MODSECURITY_INC="/usr/local/include"
 
-EXCC_OPTS="-mcpu=native -ftree-vectorize -fuse-linker-plugin -fopenmp -fPIC -pie"
+EXCC_OPTS="-mcpu=native -ftree-vectorize -fuse-linker-plugin -fuse-ld=gold -fopenmp -fPIC -shared"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
-LDFLAGS="%{?__global_ldflags} $(pcre-config --libs) -fPIC -pie -lslz"
+LDFLAGS="%{?__global_ldflags} $(pcre-config --libs) -fPIC -shared -lslz"
 export LDFLAGS;
 
 ./auto/configure \
