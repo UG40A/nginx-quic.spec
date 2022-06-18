@@ -408,7 +408,7 @@ popd
 
 %build
 source scl_source enable gcc-toolset-11
-source /opt/rh/gcc-toolset-11/enable
+# source /opt/rh/gcc-toolset-11/enable
 
 # Change ModSecurity RPATH behavior:
 # If NGX_IGNORE_RPATH is set to "YES", we will ignore explicit
@@ -420,11 +420,11 @@ NGX_IGNORE_RPATH="NO"
 MODSECURITY_LIB="/usr/local/lib"
 MODSECURITY_INC="/usr/local/include"
 
-EXCC_OPTS="-mcpu=native -ftree-vectorize -fuse-linker-plugin -fuse-ld=gold -fopenmp -fPIC -shared"
+EXCC_OPTS="-mcpu=native -ftree-vectorize -fuse-linker-plugin -fuse-ld=gold -fopenmp -fPIC -pie"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
-LDFLAGS="%{?__global_ldflags} $(pcre-config --libs) -fPIC -shared -lslz"
+LDFLAGS="%{?__global_ldflags} $(pcre-config --libs) -fPIC -pie -lslz"
 export LDFLAGS;
 
 ./auto/configure \
