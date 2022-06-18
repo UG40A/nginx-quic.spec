@@ -709,7 +709,7 @@ esac
 %dir %{nginx_moddir}
 
 # load all dynamic modules
-%{nginx_moddir}/*.so
+%%ginx_moddir}/*.so
 
 %changelog
 * Tue Mar 22 2022 Ryoh Kawai <kawairyoh@gmail.com> - 1.21.6-4
