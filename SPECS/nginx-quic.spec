@@ -420,7 +420,7 @@ MODSECURITY_LIB="/usr/local/lib"
 MODSECURITY_INC="/usr/local/include"
 
 export MAKEFLAGS='-j$(nproc)'
-EXCC_OPTS="-mcpu=native -O3 -ftree-vectorize -fuse-linker-plugin -fuse-ld=gold -fopenmp -flto"
+EXCC_OPTS="-mcpu=native -O3 -ftree-vectorize -fuse-linker-plugin -fuse-ld=gold -fopenmp"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
@@ -440,8 +440,8 @@ export LDFLAGS;
 # WIP: add args filter .so nginx dynamic modules and executable: -fPIC to libs and -fPIE to executable only
 
 ./auto/configure \
-  --with-ld-opt="${LDFLAGS} -pie" \
-  --with-cc-opt="${CFLAGS} -fPIE -ffast-math -DTCP_FASTOPEN=23" \
+  --with-ld-opt="${LDFLAGS} -L../quictls/build/lib -pie" \
+  --with-cc-opt="${CFLAGS} -I../quictls/build/include -fPIE -ffast-math -DTCP_FASTOPEN=23" \
   --with-openssl=../quictls \
   --with-openssl-opt="-O3 -fPIE -pie no-shared no-module enable-ktls zlib" \
   --prefix=%{nginx_home} \
@@ -465,7 +465,6 @@ export LDFLAGS;
   --with-compat \
   --with-pcre-jit \
   --with-http_ssl_module \
-  --with-http_v2_module \
   --with-http_realip_module \
   --with-http_addition_module \
   --with-http_sub_module \
