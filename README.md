@@ -1,6 +1,6 @@
 # nginx-quic.spec
 
-nginx quic preview package build for AARCH64 Ampere A1 CPU.
+nginx quic preview package build for AARCH64 Neoverse N1 (GRAVITON2) CPU.
 
 - Enable QUIC and HTTP/3
 - SSL library uses quictls 3.0.x (Support kernel TLS, FIPS, ZLIB)
