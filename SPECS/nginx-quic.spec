@@ -581,8 +581,8 @@ unlink %{buildroot}%{nginx_confdir}/win-utf
 
 # brotli module
 cat <<__EOL__ > %{buildroot}%{nginx_confdir}/conf.modules.d/ngx_brotli.conf
-load_module "%{nginx_moddir}/ngx_http_brotli_filter_module.so";
-load_module "%{nginx_moddir}/ngx_http_brotli_static_module.so";
+#load_module "%%{nginx_moddir}/ngx_http_brotli_filter_module.so";
+#load_module "%%{nginx_moddir}/ngx_http_brotli_static_module.so";
 __EOL__
 
 # nginx reset paths
@@ -704,10 +704,10 @@ esac
 %config(noreplace) %{nginx_confdir}/conf.d/http/brotli.conf
 %config(noreplace) %{nginx_confdir}/conf.modules.d/ngx_brotli.conf
 
-%dir %{nginx_moddir}
+#%%dir %%{nginx_moddir}
 
 # load all dynamic modules
-%%ginx_moddir}/*.so
+#%%ginx_moddir}/*.so
 
 %changelog
 * Tue Mar 22 2022 Ryoh Kawai <kawairyoh@gmail.com> - 1.21.6-4
