@@ -493,29 +493,29 @@ export LDFLAGS;
   --with-stream_quic_module \
   --with-mail \
   --with-mail_ssl_module \
-  --add-module=../njs/nginx \
-  --add-module=../ngx_brotli \
-  --add-module=../ngx_http_geoip2_module \
-  --add-module=../nginx-module-vts \
-  --add-module=../echo-nginx-module \
-  --add-module=../zstd-nginx-module \
-  --add-module=../ngx_memc \
-  --add-module=../ngx_pgs \
-  --add-module=../ngx_devel_kit \
-  --add-module=../ngx_set_misc \
-  --add-module=../ngx_dynamic_etag \
-  --add-module=../ngx_security_headers \
-  --add-module=../ngx_fancyindex \
-  --add-module=../ngx_push_stream \
-  --add-module=../ngx_cookie_flag \
-  --add-module=../ngx_sysguard \
-  --add-module=../ngx_cache_purge \
-  --add-module=../ngx_immutable \
-  --add-module=../ngx_secure_token \
-  --add-module=../ngx_pta \
-  --add-module=../ngx_sticky \
-  --add-module=../headers-more-nginx-module \
-  --add-module=../ngx_srcache
+  --add-dynamic-module=../njs/nginx \
+  --add-dynamic-module=../ngx_brotli \
+  --add-dynamic-module=../ngx_http_geoip2_module \
+  --add-dynamic-module=../nginx-module-vts \
+  --add-dynamic-module=../echo-nginx-module \
+  --add-dynamic-module=../zstd-nginx-module \
+  --add-dynamic-module=../ngx_memc \
+  --add-dynamic-module=../ngx_pgs \
+  --add-dynamic-module=../ngx_devel_kit \
+  --add-dynamic-module=../ngx_set_misc \
+  --add-dynamic-module=../ngx_dynamic_etag \
+  --add-dynamic-module=../ngx_security_headers \
+  --add-dynamic-module=../ngx_fancyindex \
+  --add-dynamic-module=../ngx_push_stream \
+  --add-dynamic-module=../ngx_cookie_flag \
+  --add-dynamic-module=../ngx_sysguard \
+  --add-dynamic-module=../ngx_cache_purge \
+  --add-dynamic-module=../ngx_immutable \
+  --add-dynamic-module=../ngx_secure_token \
+  --add-dynamic-module=../ngx_pta \
+  --add-dynamic-module=../ngx_sticky \
+  --add-dynamic-module=../headers-more-nginx-module \
+  --add-dynamic-module=../ngx_srcache
   
   #Failed to build:
   # Due to AARCH64:
@@ -581,8 +581,8 @@ unlink %{buildroot}%{nginx_confdir}/win-utf
 
 # brotli module
 cat <<__EOL__ > %{buildroot}%{nginx_confdir}/conf.modules.d/ngx_brotli.conf
-#load_module "%%{nginx_moddir}/ngx_http_brotli_filter_module.so";
-#load_module "%%{nginx_moddir}/ngx_http_brotli_static_module.so";
+load_module "%{nginx_moddir}/ngx_http_brotli_filter_module.so";
+load_module "%{nginx_moddir}/ngx_http_brotli_static_module.so";
 __EOL__
 
 # nginx reset paths
@@ -704,10 +704,10 @@ esac
 %config(noreplace) %{nginx_confdir}/conf.d/http/brotli.conf
 %config(noreplace) %{nginx_confdir}/conf.modules.d/ngx_brotli.conf
 
-#%%dir %%{nginx_moddir}
+%dir %{nginx_moddir}
 
 # load all dynamic modules
-#%%ginx_moddir}/*.so
+%{nginx_moddir}/*.so
 
 %changelog
 * Tue Mar 22 2022 Ryoh Kawai <kawairyoh@gmail.com> - 1.21.6-4
