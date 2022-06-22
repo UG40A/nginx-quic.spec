@@ -147,7 +147,7 @@ Source224:      https://github.com/apache/incubator-pagespeed-ngx/archive/%{ngx_
 
 
 # Requires:       jemalloc
-# Requires:       mimalloc
+Requires:       mimalloc
 Requires:       brotli
 Requires:       libzstd
 Requires:       libslz
@@ -160,7 +160,7 @@ BuildRequires:    systemd
 BuildRequires:  make gcc lld automake autoconf libtool
 BuildRequires:  zlib-devel pcre-devel
 # BuildRequires:  jemalloc-devel
-# BuildRequires:  mimalloc-devel
+BuildRequires:  mimalloc-devel
 BuildRequires:  libunwind-devel
 BuildRequires:  brotli-devel
 BuildRequires:  openssl-devel
@@ -420,11 +420,11 @@ MODSECURITY_LIB="/usr/local/lib"
 MODSECURITY_INC="/usr/local/include"
 
 export MAKEFLAGS='-j$(nproc)'
-EXCC_OPTS="-mcpu=native -O3 -ftree-vectorize -fuse-linker-plugin -fuse-ld=gold -fopenmp -fPIC"
+EXCC_OPTS="-mcpu=native -O3 -ftree-vectorize -fuse-linker-plugin -fuse-ld=gold -fopenmp -fPIC -fomit-frame-pointer"
 CFLAGS="$(echo %{optflags} $(pcre-config --cflags))"
 CFLAGS="${CFLAGS} ${EXCC_OPTS}"; export CFLAGS;
 export CXXFLAGS="${CFLAGS}"
-LDFLAGS="%{?__global_ldflags} $(pcre-config --libs)  -lslz"
+LDFLAGS="%{?__global_ldflags} $(pcre-config --libs) -lmimalloc -lslz"
 export LDFLAGS;
 
 # Dynamic: 
@@ -443,7 +443,7 @@ export LDFLAGS;
   --with-ld-opt="${LDFLAGS} -L../quictls/build/lib" \
   --with-cc-opt="${CFLAGS} -I../quictls/build/include -DTCP_FASTOPEN=23" \
   --with-openssl=../quictls \
-  --with-openssl-opt="enable-ktls zlib" \
+  --with-openssl-opt="-DOPENSSL_PIC enable-ktls zlib" \
   --prefix=%{nginx_home} \
   --sbin-path=%{_sbindir}/nginx \
   --modules-path=%{nginx_moddir} \
