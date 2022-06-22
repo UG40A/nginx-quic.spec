@@ -95,6 +95,9 @@ Patch2:         modsecurity_nginx_memleaks_and_severity.patch
 # Naxsi patch:
 Patch223:       naxsi_header.patch
 
+# QuicTLS patch:
+Patch100:       openssl-multi.patch
+
 Source10:       nginx.service
 Source11:       nginx.sysconf
 Source12:       nginx.logrotate
