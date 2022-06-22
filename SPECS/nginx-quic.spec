@@ -446,7 +446,7 @@ export LDFLAGS;
   --with-ld-opt="${LDFLAGS} -L../quictls/build/lib" \
   --with-cc-opt="${CFLAGS} -I../quictls/build/include -DTCP_FASTOPEN=23" \
   --with-openssl=../quictls \
-  --with-openssl-opt="-DOPENSSL_PIC enable-ktls zlib" \
+  --with-openssl-opt="--prefix=/opt/openssl --openssldir=/opt/openssl -Wl,-rpath=/opt/openssl/lib -Wl,--enable-new-dtag -DOPENSSL_PIC -DOPENSSL_TLS_SECURITY_LEVEL=2 -DL_ENDIAN -DOPENSSL_USE_NODELETE -DNDEBUG -DPURIFY -DDEVRANDOM="\"/dev/urandom\"" -DOPENSSL_PIC enable-ec_nistp_64_gcc_128 enable-ktls zlib-dynamic" \
   --prefix=%{nginx_home} \
   --sbin-path=%{_sbindir}/nginx \
   --modules-path=%{nginx_moddir} \
